@@ -1,0 +1,1 @@
+Place the three supplied videos here as preview-1.mp4, preview-2.mp4, and preview-3.mp4 (left-to-right order). The homepage automatically imports these files when present; until then it shows the existing posters with video controls and no invented source. Playback validation is pending actual files.

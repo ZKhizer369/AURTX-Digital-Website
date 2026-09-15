@@ -94,26 +94,97 @@ A handoff must distinguish completed work, verified evidence, remaining work, as
 
 ---
 
-## 4. Universal Workflow
+## 4. Universal workflow
 
 The default lifecycle is:
 
-`TASK → RESEARCH → TASK SPECIFICATION → IMPLEMENTATION → VERIFICATION → VISUAL QA → CODE REVIEW → HUMAN REVIEW → APPROVAL → DELIVERY → CI → MERGE → DEPLOY`
+`TASK → RESEARCH → TASK SPECIFICATION → IMPLEMENTATION → FINAL VERIFICATION & REVIEW → HUMAN REVIEW → APPROVAL → DELIVERY → CI → MERGE → DEPLOY`
 
-The workflow is adaptive.
+The workflow is adaptive, but adaptation must be based on task requirements rather than convenience.
+
+The existence of an agent does not by itself require delegation. However, when a workflow stage is required and a designated agent exists for that stage, the Parent/Root must delegate that stage to the designated agent rather than performing the stage itself.
 
 A stage may be skipped only when:
+- the stage is genuinely unnecessary for the task; or
+- its required evidence/output already exists and remains valid for the current task.
 
-* it is genuinely unnecessary; and
-* applicable workflow rules permit the omission.
+Reusing valid prior work is preferred to repeating work.
 
-The existence of an agent or Skill does not require its use for every task.
+Do not skip a required stage merely because:
+- the Parent/Root already has sufficient context;
+- delegation appears slower;
+- the Parent/Root can perform the work itself;
+- the required Skill can be used directly by the Parent/Root.
 
-Never skip a required approval, verification, or safety gate for convenience.
+The Parent/Root remains responsible for determining which stages apply and for integrating their outputs.
 
 ---
 
-## 5. Scope Discipline
+## 5. Parent / Root orchestration
+
+The Parent/Root agent coordinates the task but does not absorb specialized workflow stages merely because it can perform them.
+
+For every task, the Parent/Root must first determine:
+
+1. task type;
+2. required workflow stages;
+3. whether valid prior stage output can be reused;
+4. designated agent for each required stage;
+5. minimum context required by each delegated stage.
+
+### Implementation routing
+
+For a non-trivial frontend implementation task:
+
+- **Research / task preparation** → `researcher`
+- **Implementation** → `implementer`
+- **Final verification and review** → `verifier`
+- **Git delivery** → `git-delivery` when the Delivery stage is authorized
+
+The Parent/Root must invoke the designated agent through the active Codex delegation mechanism when that stage is required.
+
+If valid research/task preparation already exists, do not automatically rerun Researcher from scratch.
+
+Instead, the Parent/Root may delegate a bounded Researcher task to:
+- validate whether the existing preparation remains sufficient;
+- identify only what has changed;
+- update only the affected task package;
+- return an implementation-ready handoff.
+
+If the existing Task Specification is complete, current, and directly applicable, the Researcher stage may be skipped with an explicit reuse decision recorded by the Parent/Root.
+
+### Parent execution boundary
+
+The Parent/Root may perform work directly when:
+- the task is trivial;
+- no specialized workflow stage is required;
+- the required stage is explicitly permitted to remain with the Parent/Root;
+- or the required downstream output already exists and is still valid.
+
+The Parent/Root must not perform a required Research, Implementation, Final Verification, or Delivery stage itself merely to avoid delegation.
+
+### Delegation execution
+
+When a designated agent is required:
+
+1. define the bounded assignment;
+2. provide the authoritative task context;
+3. identify required Skills;
+4. define authority and write boundaries;
+5. specify the required handoff;
+6. invoke the agent using the active Codex delegation mechanism;
+7. wait for and inspect the result;
+8. integrate the result before proceeding.
+
+A Markdown instruction describing delegation is not itself delegation. The Parent/Root must actually invoke the available agent mechanism.
+
+If the required delegation mechanism is unavailable, STOP and report the limitation rather than silently replacing the designated agent with Parent/Root execution.
+
+The Parent/Root remains accountable for the complete workflow and may not convert an agent's output into approval without satisfying the applicable approval gate.
+
+---
+
+## 6. Scope Discipline
 
 Every task has an approved scope.
 
@@ -143,7 +214,7 @@ If a material assumption is required, surface it.
 
 ---
 
-## 6. Context and Execution Efficiency
+## 7. Context and Execution Efficiency
 
 Agents must use the **minimum effective context** required to complete their assigned responsibility.
 
@@ -214,7 +285,7 @@ Use the upstream evidence and continue from the established state.
 
 ---
 
-## 7. Research Boundary
+## 8. Research Boundary
 
 Research exists to prepare execution, not to explore indefinitely.
 
@@ -235,7 +306,7 @@ If the task is not ready, report the exact missing information or dependency.
 
 ---
 
-## 8. Implementation Boundary
+## 9. Implementation Boundary
 
 The Implementer executes the approved Task Specification.
 
@@ -257,7 +328,7 @@ Do not silently invent a solution.
 
 ---
 
-## 9. Verification and Evidence
+## 10. Verification and Evidence
 
 Implementation, verification, visual QA, code review, and human approval are separate states.
 
@@ -280,7 +351,7 @@ When runtime evidence is unavailable, distinguish source inspection from observe
 
 ---
 
-## 10. Figma and Design Authority
+## 11. Figma and Design Authority
 
 When Figma is an authoritative design source:
 
@@ -310,7 +381,7 @@ Do not repeatedly attempt an unavailable operation without new evidence.
 
 ---
 
-## 11. Asset Handling
+## 12. Asset Handling
 
 Prefer verified existing project assets.
 
@@ -329,7 +400,7 @@ An asset-export failure must not cause the Implementer to enter an uncontrolled 
 
 ---
 
-## 12. Delegation
+## 13. Delegation
 
 Delegation is optional.
 
@@ -354,7 +425,7 @@ Do not use delegation to bypass:
 
 ---
 
-## 13. Handoffs
+## 14. Handoffs
 
 A completed stage that produces downstream work must provide an appropriate handoff.
 
@@ -377,7 +448,7 @@ A handoff does not prove that the next agent consumed it. Actual consumption mus
 
 ---
 
-## 14. STOP / BLOCKED / ESCALATE
+## 15. STOP / BLOCKED / ESCALATE
 
 ### STOP
 
@@ -422,7 +493,7 @@ Never continue by guessing.
 
 ---
 
-## 15. Change Boundaries
+## 16. Change Boundaries
 
 The universal workflow infrastructure is protected from ordinary application work.
 
@@ -440,7 +511,7 @@ Never weaken workflow controls merely to bypass a blocker.
 
 ---
 
-## 16. Human Authority
+## 17. Human Authority
 
 Human authority remains the final decision point for consequential changes.
 
@@ -461,7 +532,7 @@ Do not request redundant approval when an approved Task Specification already cl
 
 ---
 
-## 17. Git and Delivery
+## 18. Git and Delivery
 
 Implementation and delivery are separate responsibilities.
 
@@ -483,7 +554,7 @@ Never claim a delivery action occurred without evidence.
 
 ---
 
-## 18. Truthful Reporting
+## 19. Truthful Reporting
 
 Every agent must distinguish:
 
@@ -517,7 +588,7 @@ If something could not be verified, say so.
 
 ---
 
-## 19. Completion
+## 20. Completion
 
 A workflow stage is complete only when it has:
 
@@ -536,7 +607,7 @@ The overall task is complete only when all required stages and approval gates ha
 
 ---
 
-## 20. Final Operating Rule
+## 21. Final Operating Rule
 
 When uncertain:
 

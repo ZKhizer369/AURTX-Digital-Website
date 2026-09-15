@@ -21,37 +21,45 @@ It does not replace:
 
 ---
 
-## Core Principles
+## Core principle
 
-1. Delegate only when separation provides meaningful value.
-2. Delegated work must be bounded.
-3. Provide the minimum effective context.
-4. Prefer references to authoritative files over copying their contents.
-5. Do not make the delegated agent rediscover information already established.
-6. Do not make the parent repeat delegated work unnecessarily.
-7. Delegation does not transfer overall accountability.
-8. Every delegation must have a defined completion condition.
-9. Failed delegation must stop rather than become an uncontrolled retry loop.
+Use delegation to create useful separation of responsibility.
+
+The existence of an agent does not by itself require delegation.
+
+However, when the Parent/Root determines that a workflow stage is required and a designated agent exists for that stage, the designated agent owns that stage and must be invoked through the active Codex delegation mechanism.
+
+Do not replace required agent execution with Parent/Root execution merely because:
+- the Parent/Root already has sufficient context;
+- the Parent/Root can perform the work;
+- delegation appears slower;
+- the applicable Skill can be used directly.
+
+Optimize delegation by minimizing the assignment and context, not by silently bypassing the designated agent.
+
+Reuse valid upstream work whenever possible.
 
 ---
 
-## When to Delegate
 
-Delegate when the subtask is:
+## When delegation is required
 
-* clearly bounded;
-* independently useful;
-* sufficiently specified;
-* materially improved by specialization;
-* materially improved by genuine parallelism.
+Delegation is required when:
 
-Typical cases:
+- the workflow stage is required for the task;
+- a designated agent exists for that stage;
+- the active Codex environment exposes that agent.
 
-* repository/design research;
-* independent verification;
-* focused implementation;
-* focused review;
-* another clearly bounded specialist task.
+Examples:
+
+- required research/task preparation → `researcher`
+- required implementation → `implementer`
+- required final verification/review → `verifier`
+- authorized delivery → `git-delivery`
+
+If valid upstream work already satisfies the stage, do not repeat it unnecessarily. The Parent/Root should either:
+- reuse the valid output; or
+- delegate a bounded validation/update task to the designated agent when freshness or applicability must be established.
 
 ---
 
