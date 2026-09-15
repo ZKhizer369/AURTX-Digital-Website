@@ -1,398 +1,504 @@
 ---
 name: figma-use
-description: Safely inspect and interact with Figma through the Figma MCP, preserving design intent, structure, assets, and visual fidelity. Use before any Figma MCP operation.
+description: Safely perform bounded Figma MCP operations using the minimum context required by the current task. Use before any Figma MCP operation.
 ---
 
 # Figma Use
 
 ## Purpose
 
-Use this Skill whenever the task requires interacting with Figma through the Figma MCP.
+Provide the foundational operating rules for using Figma MCP safely and efficiently.
 
-This Skill is the foundational Figma-MCP operating procedure for the AURTX software-engineering workflow. It defines how an agent inspects Figma, extracts reliable design information, performs authorized Figma operations, and validates the result.
+This Skill defines **how to operate Figma**.
 
-This Skill does not decide product requirements or design intent. The task, approved design, Task Specification, and applicable instructions remain authoritative.
+It does not determine:
 
-## Core rule
+- product requirements;
+- design intent;
+- which assets are required;
+- which implementation should be built;
+- whether visual QA is required.
 
-**Inspect before acting. Act only within authorized scope. Validate after acting.**
+Those decisions come from the Task Specification, approved instructions, and specialized Skills.
 
-Never infer an important design decision when the Figma file contains evidence that can be inspected. When the design is genuinely ambiguous, record the ambiguity and escalate instead of inventing a decision.
+---
 
-## Required use
+# Core Rule
 
-Before making a Figma MCP operation:
+Use:
 
-1. Load this Skill.
-2. Identify the relevant Figma file, page, and node/frame.
-3. Determine whether the operation is read-only or write-capable.
-4. Confirm that the current agent and task are authorized for the operation.
-5. Inspect the minimum relevant context before acting.
-6. Perform the smallest operation required.
-7. Validate the result when the operation changes anything or when visual/design evidence is required.
-8. Report relevant Figma evidence in the handoff.
+`TARGET → MINIMUM INSPECTION → REQUIRED OPERATION → VERIFY → STOP`
 
-If the required Figma MCP capability is unavailable, do not simulate access or claim that the design was inspected.
+Never:
 
-## Authority and safety
+`OPEN BROADLY → EXPLORE → INSPECT EVERYTHING → EXPERIMENT → RETRY → REINSPECT`
 
-### Default: read-only
+Figma access must remain task-bounded.
 
-Figma inspection is read-only by default.
+---
 
-Do not modify a Figma file merely because a modification appears useful.
+# Required Before Any Figma Operation
 
-Write operations require explicit task authorization. Examples include:
+Before using Figma MCP:
 
-- creating, deleting, or restructuring nodes
-- changing component or variant definitions
-- changing variables, styles, or bindings
-- changing Auto Layout structure
-- changing shared design-system assets
-- changing names or hierarchy for cleanup
-- modifying the source design to make implementation easier
+1. load this Skill;
+2. identify the approved task;
+3. identify the specific Figma file/page/node relevant to the task;
+4. determine the purpose of the operation;
+5. determine whether it is read-only or write-capable;
+6. confirm authorization;
+7. inspect only the minimum information required;
+8. perform the smallest necessary operation;
+9. verify the result when required;
+10. stop.
 
-### Never assume authorization
+If the target or authorization cannot be established:
 
-Do not infer permission to edit Figma from:
+`STOP → REPORT GAP → ESCALATE`
 
-- having Figma MCP access
-- having this Skill
-- having write access to the code repository
-- being the Implementer
-- being asked to implement a design
-- discovering an apparent design-system problem
+Do not begin broad Figma exploration to resolve an unclear task.
 
-If authorization is absent or ambiguous, stop and escalate.
+---
 
-### Preserve existing intent
+# Default: Read-Only
 
-Do not redesign, "improve", normalize, simplify, or clean up Figma unless that is explicitly within the approved task.
+Figma operations are read-only by default.
 
-Do not impose an external design-system philosophy over the existing design.
+Having Figma MCP access does not grant permission to modify the design.
 
-## Figma inspection procedure
+Write operations require explicit authorization from the approved task.
 
-When investigating a design:
+Examples of write operations include:
 
-### 1. Establish the target
+- creating nodes;
+- deleting nodes;
+- moving nodes;
+- changing hierarchy;
+- changing components;
+- changing variants;
+- changing properties;
+- changing variables;
+- changing styles;
+- changing Auto Layout;
+- modifying shared design-system assets;
+- renaming or restructuring design content.
 
-Identify:
+If write authorization is absent or ambiguous:
 
-- file
-- page
-- target frame/node
-- relevant parent and child hierarchy
-- whether the target is canonical, repeated, exploratory, or ambiguous
+`STOP`
 
-Do not assume a similarly named frame is the correct source.
+---
 
-### 2. Inspect structure
+# Target Identification
 
-Determine, where relevant:
+Before inspection, establish the narrowest available target:
 
-- node types
-- meaningful layer names
-- hierarchy
-- components and component sets
-- variants
-- component properties
-- nested instances
-- variables and modes
-- styles
-- Auto Layout
-- sizing behavior
-- constraints
-- positioning
-- visibility/state structure
+- file;
+- page;
+- frame;
+- node;
+- component;
+- instance;
+- asset.
 
-Use the smallest useful inspection scope first and expand only when necessary.
+Prefer references supplied by:
 
-### 3. Inspect visual properties
+1. Task Specification;
+2. Research Handoff;
+3. task-specific instruction;
+4. approved design reference.
 
-When relevant, inspect:
+Do not assume a similarly named Figma object is the correct target.
 
-- dimensions
-- spacing
-- padding
-- gaps
-- alignment
-- fills
-- strokes
-- corner radius
-- shadows/effects
-- opacity
-- typography
-- image/media treatment
-- clipping
-- responsive behavior
+If multiple candidates exist, use only the minimum additional inspection needed to resolve them.
 
-Do not replace exact inspected values with guesses.
+If the correct target cannot be established:
 
-### 4. Inspect assets
+`STOP → REPORT AMBIGUITY → ESCALATE`
 
-Identify:
+---
 
-- images
-- icons
-- logos
-- illustrations
-- fonts or typography requirements
-- existing reusable assets
-- asset variants
+# Minimum Inspection Principle
 
-Prefer authoritative existing assets over approximations.
-
-### 5. Inspect conventions
-
-Before changing or implementing against a repeated pattern, inspect nearby or equivalent examples.
-
-Determine the conventions already present in the design rather than inventing new ones.
-
-## Figma-to-implementation interpretation
-
-When Figma is being used to prepare or implement frontend work, extract implementation-relevant facts without turning design interpretation into product decisions.
-
-Record, when relevant:
-
-- intended hierarchy
-- component boundaries suggested by repeated behavior
-- states and variants
-- responsive behavior
-- spacing and sizing rules
-- typography hierarchy
-- token/variable relationships
-- asset identity
-- interaction/state information represented by the design
-- important visual relationships
-
-### React-specific guidance
-
-Figma layers are not automatically React components.
-
-A React component boundary should be determined from:
-
-1. approved Task Specification
-2. existing project architecture
-3. existing reusable components
-4. repeated behavior/state
-5. design structure
-6. project conventions
-
-Do not create one React component per Figma layer merely because the layer exists.
-
-Likewise, do not duplicate a component that already exists in the project simply because Figma represents another instance of it.
-
-## Design truth and ambiguity
-
-Classify findings as:
-
-### Verified
-
-Directly supported by inspected Figma data.
+Inspect only what is necessary to answer the current task question.
 
 Examples:
 
-- exact frame dimensions
-- observed spacing
-- component property values
-- existing asset/node identity
-- observed Auto Layout configuration
+### Need dimensions
 
-### Interpretation
+Inspect:
 
-A reasonable implementation interpretation derived from verified design evidence.
+- target dimensions;
+- relevant sizing properties.
 
-Label it as interpretation when it is not directly represented by Figma.
+Do not inspect the entire component hierarchy.
 
-### Unknown / ambiguous
+### Need a component variant
 
-The available Figma evidence does not establish the decision.
+Inspect:
 
-Do not convert ambiguity into a requirement.
+- component set;
+- relevant variants;
+- required properties.
+
+Do not inspect unrelated components.
+
+### Need an image
+
+Inspect:
+
+- target image node;
+- enough surrounding context to establish identity.
+
+Do not enumerate the entire asset library.
+
+### Need responsive behavior
+
+Inspect:
+
+- target frame;
+- relevant layout constraints;
+- relevant Auto Layout/sizing behavior.
+
+Do not inspect unrelated pages.
+
+### Need typography
+
+Inspect:
+
+- relevant text;
+- relevant style/token relationship.
+
+Do not audit the complete design system.
+
+---
+
+# Context Expansion
+
+Expand inspection only when a specific unresolved question requires it.
+
+Use:
+
+`TARGET → DIRECT EVIDENCE → IDENTIFY GAP → NARROW EXPANSION`
+
+Every expansion should answer a concrete question.
+
+Do not expand because:
+
+- more information is available;
+- the Figma file is large;
+- nearby components look interesting;
+- the agent wants additional confidence without a material reason.
+
+Once sufficient evidence exists:
+
+`STOP INSPECTING`
+
+---
+
+# Figma Structure
+
+Inspect structural information only when relevant to the task.
+
+Possible structural information includes:
+
+- hierarchy;
+- node type;
+- component;
+- instance;
+- variant;
+- component property;
+- Auto Layout;
+- sizing;
+- constraints;
+- visibility;
+- positioning.
+
+Do not inspect all categories automatically.
+
+Use the smallest subset necessary.
+
+---
+
+# Visual Properties
+
+Inspect visual properties only when relevant.
+
+Possible properties include:
+
+- dimensions;
+- spacing;
+- padding;
+- gaps;
+- alignment;
+- fills;
+- strokes;
+- radius;
+- effects;
+- opacity;
+- typography;
+- imagery;
+- clipping.
+
+Do not collect complete style inventories unless explicitly required.
+
+Use observed values rather than guessing when exact values matter.
+
+---
+
+# Assets
+
+When the task requires an asset:
+
+- identify the exact relevant asset;
+- determine whether an existing project asset already satisfies the requirement;
+- use the dedicated `frontend-asset-handling` or `figma-asset-export` Skill when applicable.
+
+Do not turn `figma-use` into a general asset-discovery process.
+
+Do not export assets merely because they are visible in the design.
+
+Do not inspect unrelated assets.
+
+---
+
+# Components and Variants
+
+When component information is required:
+
+1. inspect the relevant component or component set;
+2. identify the applicable variant/property;
+3. inspect nested instances only when they affect the task.
+
+Do not create or modify components unless explicitly authorized.
+
+Do not audit unrelated component sets.
+
+---
+
+# Variables, Styles, and Tokens
+
+Inspect variables, styles, or tokens only when the task depends on them.
+
+When they exist:
+
+- use the relevant existing value;
+- preserve existing bindings;
+- do not invent replacement tokens;
+- do not globally normalize the design system.
+
+A convenient implementation value is not permission to modify the design system.
+
+---
+
+# Auto Layout
+
+Inspect Auto Layout only when relevant.
+
+When needed, establish:
+
+- layout direction;
+- padding;
+- gap;
+- alignment;
+- sizing behavior;
+- wrapping;
+- relevant positioning.
+
+Do not change Auto Layout unless explicitly authorized.
+
+Do not enable or restructure Auto Layout simply because it appears useful for implementation.
+
+---
+
+# Figma-to-Code Interpretation
+
+Figma structure is evidence, not an automatic code architecture.
+
+Do not map every Figma layer to a React component.
+
+When implementation structure must be inferred, use:
+
+1. approved Task Specification;
+2. existing project architecture;
+3. existing reusable components;
+4. repeated behavior/state;
+5. relevant design structure;
+6. project conventions.
+
+If the design does not establish an important implementation decision:
+
+`UNKNOWN / AMBIGUOUS`
+
+Do not invent a requirement.
+
+---
+
+# Design Evidence Classification
+
+Classify Figma findings as:
+
+### VERIFIED
+
+Directly observed in Figma.
 
 Examples:
 
-- unclear breakpoint behavior
-- multiple apparently canonical screens
-- unclear interaction behavior
-- missing mobile design
-- conflicting component variants
-- ambiguous asset choice
+- target dimensions;
+- observed spacing;
+- component variant;
+- asset identity;
+- existing property value.
 
-Escalate when the ambiguity materially affects implementation.
+### INTERPRETATION
 
-## Read/write operation discipline
+A reasonable implementation conclusion derived from verified evidence.
 
-For read operations:
+Label it as interpretation.
 
-- inspect only what is needed
-- return useful identifiers and relevant evidence
-- do not mutate the document
+### UNKNOWN
 
-For write operations:
+Figma does not establish the required decision.
 
-1. confirm authorization
-2. inspect the current state
-3. capture the properties that must be preserved
-4. make the smallest scoped change
-5. return affected node identifiers
-6. inspect the resulting structure
-7. use visual comparison when appearance could have changed
-8. report what changed and what was validated
+Do not present an interpretation as a verified design requirement.
 
-Never perform a large sequence of speculative writes.
+---
 
-For potentially destructive structural changes, prefer incremental operations with validation between meaningful steps.
+# Read Operations
 
-## Visual validation
+For read-only operations:
 
-When a Figma change or implementation decision depends on appearance:
+1. identify target;
+2. inspect minimum relevant context;
+3. extract required evidence;
+4. record the result;
+5. stop.
 
-- obtain an appropriate screenshot or equivalent visual evidence when available
-- compare against the approved reference
-- inspect alignment, spacing, sizing, typography, hierarchy, imagery, states, and responsive behavior as applicable
-- investigate unexpected differences before continuing
+Do not continue inspecting once the task question has been answered.
 
-A structurally valid result is not automatically visually correct.
+---
 
-## Auto Layout
+# Write Operations
 
-When working with Auto Layout:
+Write operations require explicit authorization.
 
-- inspect the existing layout model first
-- distinguish fixed, hug, and fill behavior
-- inspect padding, gaps, alignment, wrapping, sizing, and positioning
-- preserve overlays and intentionally positioned elements
-- do not enable Auto Layout and then repair visual damage by guesswork
+Before writing:
 
-If converting an existing layout, capture the relevant original geometry and verify the resulting appearance.
+1. inspect current state;
+2. identify exactly what must change;
+3. preserve relevant existing properties;
+4. define the smallest change;
+5. perform the operation.
 
-## Components, variants, and properties
+After writing:
 
-Before selecting or changing a component:
+1. inspect the affected result;
+2. verify the intended change;
+3. use visual validation when appearance could materially change;
+4. report affected nodes and result.
 
-- inspect the component set and variants
-- inspect available properties
-- confirm the selected variant matches the intended state
-- inspect nested instances when their exposed properties affect the result
+Do not perform speculative or cleanup-oriented writes.
 
-Do not create a new component when an authoritative reusable component already exists unless the task explicitly requires it.
+Do not batch unrelated modifications into one operation.
 
-## Variables, styles, and tokens
+---
 
-When variables, styles, or tokens exist:
+# Write Scope
 
-- identify the relevant collection/mode/style
-- prefer existing project/design-system values
-- preserve existing bindings
-- do not invent replacement tokens because an existing value is inconvenient
-- do not globally normalize values unless explicitly authorized
+A Figma write must have:
 
-A local implementation need is not permission to alter the design system.
+- explicit purpose;
+- explicit authorization;
+- defined target;
+- defined expected result.
 
-## Errors and unavailable capabilities
+If any is missing:
 
-If a Figma operation fails:
+`STOP`
 
-1. capture the actual error
-2. determine whether the failure is transient, permission-related, target-related, or capability-related
-3. retry only when a retry is justified
-4. do not fabricate a result
-5. escalate when the failure blocks reliable completion
+Do not infer permission from the task merely saying “implement the design.”
 
-If a required Figma capability is unavailable, state the limitation explicitly.
+---
 
-## Evidence requirements
+# Operation Retry Control
 
-A Figma-related handoff should include, where applicable:
+When a Figma operation fails:
 
-- Figma file/reference used
-- page
-- relevant node/frame identifiers
-- design facts verified
-- assets inspected
-- components/variants/variables inspected
-- interpretation made
-- unresolved ambiguities
-- operations performed
-- validation performed
-- limitations
+1. capture the actual failure;
+2. determine whether it is actionable;
+3. make one meaningful retry only if the method or relevant condition changes;
+4. verify the result.
 
-Never report "Figma verified" without actual inspection evidence.
+If the retry fails:
 
-## Agent-role boundaries
+`STOP → BLOCKED → REPORT`
 
-### Researcher
+Do not repeatedly retry the same operation.
 
-The Researcher may use this Skill to:
+Do not experiment with unrelated operations to bypass a failure.
 
-- inspect Figma
-- understand design structure
-- extract implementation-relevant requirements
-- identify assets and design conventions
-- identify ambiguities
-- prepare implementation instructions and Task Specifications
+Use:
 
-The Researcher must not modify Figma during ordinary research/task preparation unless a separate task explicitly authorizes such modification.
+`ATTEMPT → MEANINGFUL RETRY → STOP`
 
-### Implementer
+---
 
-The Implementer may use this Skill to:
+# Capability Failures
 
-- inspect the approved design
-- resolve implementation details against Figma
-- inspect components, variants, variables, assets, and responsive behavior
-- perform explicitly authorized Figma operations when the task requires them
-- validate implementation-related design fidelity
+If the required Figma MCP capability is unavailable:
 
-Figma access does not give the Implementer authority to redesign the product.
+- state the exact limitation;
+- identify the blocked operation;
+- identify its impact;
+- report the required next action.
 
-### Verification / Visual QA
+Do not:
 
-These roles may use this Skill if their approved role configuration grants it. Their purpose is verification, not unapproved design modification.
+- simulate Figma access;
+- fabricate inspection results;
+- claim successful export;
+- claim visual verification;
+- modify unrelated content as a workaround.
 
-### Review / Delivery
+---
 
-Do not grant Figma access merely for code review or Git delivery. Grant it only when the role's defined responsibility requires direct Figma evidence.
+# Visual Validation Boundary
 
-## Relationship to other Skills
+Visual validation in this Skill is limited to validating a **specific Figma operation or design fact** when necessary.
 
-This Skill is the foundational Figma MCP operating layer.
+For example:
 
-Other Skills may build on it, for example:
+- confirming a Figma write produced the intended appearance;
+- confirming a target node's visual state;
+- confirming a specific property relationship.
 
-- Figma research/analysis
-- Figma-to-React implementation
-- Figma visual verification
-- Figma design-system auditing
+Page-level or implementation-level visual QA belongs to `frontend-visual-qa`.
 
-Those Skills must not duplicate low-level Figma MCP operating rules unnecessarily.
+Do not duplicate full visual QA here.
 
-When another Figma Skill requires Figma MCP operations, this Skill remains the foundational prerequisite.
+---
 
-## Stop conditions
+# Evidence Requirements
 
-Stop and report BLOCKED when:
+A Figma handoff should contain only task-relevant evidence.
 
-- the target Figma file/page/node cannot be reliably identified
-- required Figma access is unavailable
-- authorization to modify Figma is unclear
-- design evidence materially conflicts
-- an important requirement is absent from the design and cannot be resolved from approved instructions
-- a destructive operation would be required without explicit authorization
-- validation cannot establish whether a consequential change preserved the intended result
+When applicable:
 
-Do not proceed by guessing.
+```text
+Figma:
+[file/page/node]
 
-## Completion standard
+Verified:
+[relevant design facts]
 
-A Figma operation is complete only when:
+Interpretation:
+[only if needed]
 
-- the correct design target was identified
-- the operation stayed within authorized scope
-- existing design intent was preserved unless change was explicitly required
-- relevant Figma facts were verified
-- changes, if any, were validated
-- ambiguities and limitations were reported
-- no unsupported design decision was presented as fact
+Operation:
+[operation performed, if any]
+
+Validation:
+[result]
+
+Unresolved:
+[ambiguity/limitation, if any]

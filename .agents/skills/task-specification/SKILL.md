@@ -1,284 +1,151 @@
 ---
 name: task-specification
-description: Convert a frontend task and verified findings into a bounded, implementation-ready Task Specification without inventing requirements.
+description: Convert an approved frontend task and verified findings into the smallest implementation-ready contract required for reliable downstream execution.
 ---
 
 # Task Specification
 
 ## Purpose
 
-Create or refine the Task Specification for a frontend task that requires a clear implementation contract.
+Create a bounded implementation contract from:
 
-Use this Skill when the task depends on meaningful research, multiple constraints, design analysis, architectural context, or coordination between workflow stages.
-
-Do not require a formal Task Specification for trivial work that can be implemented safely and unambiguously without one.
-
-## Inputs
-
-Use information from:
-
-- the human task;
-- applicable instruction files;
-- authoritative project documentation;
-- verified Research Handoff findings;
-- approved design/Figma sources;
-- existing implementation;
-- deterministic evidence where relevant.
-
-Do not treat unsupported inference as verified information.
-
-## Procedure
-
-### 1. Define the objective
-
-State exactly what the task must accomplish.
-
-Keep the objective aligned with the authorized request.
-
-Do not silently improve, reinterpret, or expand the requested outcome.
-
-### 2. Define scope
-
-Record:
-
-- included work;
-- excluded work;
-- affected areas;
-- relevant boundaries.
-
-Keep the scope narrow enough to prevent unrelated work.
-
-### 3. Consolidate verified context
-
-Record only information supported by authoritative sources or verified research.
-
-Relevant context may include:
-
-- architecture;
-- components;
-- styles;
-- assets;
-- design/Figma information;
-- integration points;
-- testing mechanisms;
-- project conventions.
-
-Keep assumptions and open questions explicitly separate.
-
-### 4. Record requirements
-
-Translate the authorized task and verified findings into explicit implementation requirements.
-
-Separate:
-
-- confirmed requirements;
-- assumptions;
-- open questions.
-
-Never create requirements simply to make the specification appear complete.
-
-### 5. Record design and Figma information
-
-When applicable, record:
-
-- approved design source;
-- relevant frames;
-- relevant components;
-- layout behavior;
-- responsive behavior;
-- interaction states;
-- typography;
-- spacing;
-- asset requirements;
-- other verified visual constraints.
-
-Do not invent missing visual intent.
-
-### 6. Record existing implementation
-
-Identify relevant existing:
-
-- components;
-- patterns;
-- utilities;
-- styles;
-- architecture;
-- assets;
-- integrations.
-
-Prefer reuse of established implementation where appropriate.
-
-### 7. Define the implementation approach
-
-Describe the approved high-level implementation approach based on verified project context.
-
-The approach should explain:
-
-- where the change belongs;
-- what existing patterns/components should be reused;
-- what new implementation is required;
-- relevant integration points;
-- important implementation constraints.
-
-Do not prescribe speculative architecture.
-
-### 8. Define acceptance criteria
-
-Write observable conditions that determine whether the task is successful.
-
-Acceptance criteria should be:
-
-- specific;
-- testable;
-- directly connected to the objective.
-
-Avoid vague criteria without observable meaning.
-
-### 9. Define verification
-
-Specify the checks that should provide evidence of completion.
-
-Use applicable checks such as:
-
-- type checking;
-- linting;
-- tests;
-- build;
-- runtime checks;
-- accessibility checks;
-- visual QA;
-- regression checks.
-
-Only specify checks that are meaningful for the task.
-
-### 10. Record risks
-
-Identify known risks that could affect:
-
-- correctness;
-- accessibility;
-- performance;
-- security;
-- maintainability;
-- visual fidelity;
-- scope.
-
-Do not manufacture risks merely to populate the section.
-
-### 11. Record assumptions
-
-Record information that is necessary but not fully verified.
-
-A material assumption must be resolved before implementation.
-
-Do not silently promote an assumption into a requirement.
-
-### 12. Record open questions
-
-List unresolved questions requiring:
-
-- human clarification;
-- additional research;
-- missing design information;
-- missing project information;
-- unavailable access or tooling.
-
-Any unresolved question that materially affects correctness blocks implementation.
-
-### 13. Determine readiness
-
-Mark the specification:
-
-- `READY` when implementation can proceed reliably;
-- `BLOCKED` when a material issue prevents reliable implementation.
-
-A specification must not be marked READY when a material requirement, acceptance criterion, design dependency, or authorization remains unresolved.
-
-## Output format
-
-Use this structure:
-
-# Task Specification
-
-## Objective
-
-## Scope
-
-### Included
-
-### Excluded
-
-## Verified Context
-
-## Requirements
-
-## Design / Figma References
-
-## Existing Implementation
-
-## Assets
-
-## Responsive / Accessibility Requirements
-
-## Implementation Approach
-
-## Acceptance Criteria
-
-## Verification Plan
-
-## Risks
-
-## Assumptions
-
-## Open Questions
-
-## Readiness
-
-State:
-
-`READY`
-
-or:
-
-`BLOCKED`
-
-When BLOCKED, state exactly what prevents implementation.
-
-## Evidence discipline
-
-Material statements must be traceable to:
-
-- the human task;
-- applicable instructions;
-- project documentation;
+- the approved human task;
 - verified research;
-- existing implementation;
-- approved design sources;
-- deterministic evidence;
-- another explicitly identified authoritative source.
+- applicable project rules;
+- approved design information.
 
-Do not claim something was inspected, tested, approved, or verified unless evidence supports it.
+The Task Specification tells downstream agents:
 
-## Boundaries
+- what must be done;
+- what is in scope;
+- what evidence establishes the requirements;
+- what must be verified;
+- what unresolved issues block implementation.
 
-This Skill does not:
+It is **not** a project report.
 
-- implement source code;
-- change requirements;
-- authorize scope expansion;
-- invent design intent;
-- install dependencies;
-- commit;
-- push;
-- create pull requests;
-- override governing instructions.
+It is **not** a duplicate Research Handoff.
 
-If creating the specification requires a consequential requirement decision, stop and escalate.
+It is **not** an implementation transcript.
 
-## Final rule
+---
 
-The Task Specification converts verified information into an implementation contract.
+# Core Principles
 
-When information is missing:
+1. Preserve the approved objective.
+2. Convert verified information into actionable requirements.
+3. Include only information needed for downstream execution.
+4. Reference authoritative sources instead of copying their contents.
+5. Keep scope explicit.
+6. Make acceptance criteria observable and testable.
+7. Keep assumptions separate from requirements.
+8. Material unresolved issues block readiness.
+9. Do not invent missing requirements.
+10. Do not prescribe speculative architecture.
+11. Do not create unnecessary documentation.
+12. Stop when the implementation contract is complete.
 
-`IDENTIFY THE GAP → DO NOT INVENT THE ANSWER → BLOCK OR ESCALATE`
+---
+
+# When to Create a Task Specification
+
+Create one when the task involves meaningful coordination, such as:
+
+- multiple acceptance criteria;
+- significant design/Figma requirements;
+- architectural context;
+- multiple affected areas;
+- asset dependencies;
+- verification requirements;
+- delegation;
+- multiple workflow stages.
+
+A formal Task Specification is not required for trivial work that is already unambiguous and safely executable.
+
+---
+
+# Inputs
+
+Use:
+
+1. approved human task;
+2. applicable instruction files;
+3. verified Research Handoff;
+4. authoritative project references;
+5. approved design/Figma references;
+6. existing implementation evidence;
+7. relevant deterministic evidence.
+
+Do not automatically copy or reread all source material.
+
+If the Research Handoff already contains verified facts, select only those necessary for the implementation contract.
+
+---
+
+# 1. Define the Objective
+
+State exactly what must be accomplished.
+
+The objective must:
+
+- match the approved request;
+- describe the intended outcome;
+- avoid unnecessary implementation detail.
+
+Do not silently:
+
+- improve the objective;
+- broaden the outcome;
+- reinterpret product requirements;
+- add convenience features.
+
+---
+
+# 2. Define Scope
+
+## Included
+
+List the work required to satisfy the objective.
+
+## Excluded
+
+List boundaries that prevent common forms of scope expansion.
+
+Include exclusions only when they materially reduce ambiguity.
+
+Do not create artificial exclusions.
+
+---
+
+# 3. Select Required Context
+
+Include only facts that downstream agents need to execute the task.
+
+Possible categories:
+
+- relevant existing implementation;
+- relevant architecture;
+- exact design/Figma reference;
+- required assets;
+- integration point;
+- important technical constraint;
+- project convention;
+- verification dependency.
+
+Prefer:
+
+`SOURCE → RELEVANT FACT`
+
+over copying large source sections.
+
+Example:
+
+```text
+Figma:
+Homepage → Hero frame → node 123:456
+
+Existing implementation:
+src/components/Hero.tsx
+
+Relevant convention:
+Reuse existing Button component.

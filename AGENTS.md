@@ -2,151 +2,99 @@
 
 ## 1. Purpose
 
-This repository defines a universal, controlled workflow for AI-assisted frontend software engineering.
+This repository uses a controlled AI-assisted software engineering workflow.
 
-The system separates:
-- orchestration;
-- research and task preparation;
-- implementation;
-- verification;
-- visual QA;
-- code review;
-- human approval;
-- Git/GitHub delivery.
+This file defines the universal rules that apply to all Codex agents and tasks.
 
-The purpose of this file is to establish the universal operating rules that apply across projects and tasks.
+Detailed procedures belong in:
 
-Detailed architecture belongs in `docs/universal-system/`.
-Specialized procedures belong in `.agents/skills/`.
-Specialized agent definitions belong in `.codex/agents/`.
-The current task contract belongs in the task-specific instruction package and its Task Specification.
+* `docs/universal-system/` — durable system knowledge
+* `.agents/skills/` — specialized procedures
+* `.codex/agents/` — agent-specific operating definitions
+* `instructions/` — task-specific instructions and contracts
 
-Do not duplicate detailed procedures from those sources here unless necessary to establish a universal rule.
+Do not duplicate detailed procedures here unless they are necessary as universal rules.
 
 ---
 
-## 2. Authority and instruction hierarchy
+## 2. Authority Hierarchy
 
-Follow instructions according to this hierarchy:
+Follow instructions in this order:
 
-1. Platform and system safety requirements.
+1. Platform and system requirements.
 2. Explicit human direction and authorization.
-3. This `AGENTS.md` and other applicable higher-level repository instructions.
-4. The approved current Task Specification and task-specific instructions.
-5. Applicable project documentation and established project conventions.
-6. Required Skills and their procedures.
-7. Agent-specific operating instructions and delegation instructions.
+3. This `AGENTS.md`.
+4. The approved Task Specification and task-specific instructions.
+5. Applicable project documentation and established conventions.
+6. Required Skills.
+7. Agent-specific instructions.
 
-Specificity does not by itself override authority.
+Lower-level instructions may clarify higher-level instructions but must not contradict them.
 
-A lower-level instruction may clarify or operationalize a higher-level instruction, but must not contradict it.
+If a material conflict cannot be resolved from this hierarchy:
 
-An approved Task Specification may explicitly authorize a consequential action that this universal file requires to be explicitly authorized. Such authorization does not permit actions prohibited by platform/safety rules or outside the human-approved task.
+**STOP and escalate.**
 
-If instructions materially conflict and the conflict cannot be resolved from the hierarchy above:
-- STOP;
-- preserve the current state;
-- report the exact conflict;
-- escalate to the Parent/Root agent or human as appropriate.
-
-Never resolve a material authority conflict by guessing.
+Never resolve a material conflict by guessing.
 
 ---
 
-## 3. Universal scope
-
-This universal system is for frontend software engineering.
-
-Normal scope includes:
-- user-facing interfaces;
-- client-side behavior;
-- React and other frontend application code;
-- design systems;
-- accessibility;
-- frontend performance;
-- frontend tooling;
-- frontend testing and verification;
-- frontend build configuration;
-- approved design implementation.
-
-Do not introduce by default:
-- backend architecture;
-- backend services;
-- databases;
-- APIs;
-- server-side workflows;
-- infrastructure;
-- hosting;
-- deployment systems.
-
-If a task genuinely requires scope outside the universal frontend boundary, it must be explicitly authorized through the applicable project/task layer before implementation.
-
-Do not expand a frontend task into backend or infrastructure work because it appears convenient or useful.
-
----
-
-## 4. System model
-
-The system uses four primary concepts:
+## 3. Core Concepts
 
 ### Agent
 
-An Agent defines **who** performs a bounded responsibility.
+Defines **who** performs a bounded responsibility.
 
-An agent must operate within defined:
-- purpose;
-- authority;
-- inputs;
-- Skills;
-- read/write boundaries;
-- prohibited actions;
-- outputs;
-- STOP and escalation conditions.
+Every agent must have defined:
+
+* purpose;
+* authority;
+* inputs;
+* required Skills;
+* boundaries;
+* outputs;
+* STOP conditions.
 
 ### Skill
 
-A Skill defines **how** a specialized procedure is performed.
+Defines **how** a specialized procedure is performed.
 
-Skills are procedural knowledge, not independent requirement authority.
+Skills:
 
-A Skill does not:
-- redefine task scope;
-- approve requirements;
-- override the Task Specification;
-- grant permissions beyond the agent's authority.
+* do not define requirements;
+* do not redefine task scope;
+* do not grant additional authority;
+* do not override the Task Specification.
 
-Use the minimum effective Skills required for the assigned work.
+Use only the minimum effective Skills required for the task.
 
 ### Task Specification
 
-The Task Specification defines **what the current task requires**.
+Defines **what** the current task requires.
 
-It is the current implementation contract and should establish, where applicable:
-- objective;
-- scope;
-- verified context;
-- requirements;
-- design/Figma references;
-- existing implementation;
-- assets;
-- responsive/accessibility requirements;
-- implementation approach;
-- acceptance criteria;
-- verification plan;
-- risks;
-- assumptions;
-- open questions;
-- readiness.
+It should contain the information necessary for execution, including applicable:
+
+* objective;
+* scope;
+* requirements;
+* design references;
+* existing implementation;
+* assets;
+* acceptance criteria;
+* verification requirements;
+* risks;
+* blockers;
+* readiness.
 
 ### Handoff
 
-A Handoff records **what a workflow stage actually produced** for the next stage.
+Records what a workflow stage actually produced for the next stage.
 
-Handoffs must be factual, auditable, and distinguish completed work from work that remains pending.
+A handoff must distinguish completed work, verified evidence, remaining work, assumptions, and blockers.
 
 ---
 
-## 5. Universal workflow
+## 4. Universal Workflow
 
 The default lifecycle is:
 
@@ -154,501 +102,412 @@ The default lifecycle is:
 
 The workflow is adaptive.
 
-A stage may be skipped when it is genuinely unnecessary for the task and the applicable workflow rules permit the omission.
+A stage may be skipped only when:
 
-The existence of an agent or Skill does not mean it must be invoked for every task.
+* it is genuinely unnecessary; and
+* applicable workflow rules permit the omission.
 
-Do not skip a stage merely because it is inconvenient.
+The existence of an agent or Skill does not require its use for every task.
 
-The Parent/Root agent is responsible for maintaining the overall workflow and ensuring that required stages and approval gates are respected.
-
----
-
-## 6. Parent / Root orchestration
-
-The Parent/Root agent coordinates the task.
-
-It is responsible for:
-- understanding the overall request;
-- determining the applicable workflow stages;
-- preserving the approved scope;
-- delegating bounded work;
-- integrating stage outputs;
-- ensuring required verification;
-- maintaining the handoff chain;
-- respecting human approval gates.
-
-The Parent/Root agent must not invent authority beyond the human-approved task.
-
-A specialized agent owns its assigned responsibility, not the entire workflow.
-
-The Parent/Root agent must not silently convert an agent's findings into an approval, requirement change, or verification result.
+Never skip a required approval, verification, or safety gate for convenience.
 
 ---
 
-## 7. Research and task preparation
+## 5. Scope Discipline
 
-When research is warranted, the Researcher is responsible for understanding and preparing the task.
+Every task has an approved scope.
 
-The Researcher may:
-- inspect the repository;
-- inspect relevant architecture and implementation;
-- inspect authoritative design context;
-- inspect assets;
-- research technical requirements;
-- identify constraints, risks, and dependencies;
-- create the task-specific instruction package;
-- create the Task Specification;
-- identify the minimum Skills required by the Implementer;
-- identify exact instruction files the Implementer must read;
-- prepare the Implementer Prompt;
-- produce a Research Handoff.
+Agents must:
 
-The Researcher does not implement application/source code unless its explicitly assigned task is itself a research/system task that authorizes such changes.
+* work only within that scope;
+* make the smallest appropriate change;
+* preserve existing project conventions;
+* avoid unrelated refactoring;
+* avoid unnecessary dependencies;
+* avoid architecture changes unless authorized.
 
-Research output must distinguish:
-- verified facts;
-- interpretation;
-- assumptions;
-- unknowns;
-- blockers.
+Do not expand scope because another improvement appears useful or convenient.
 
-A Researcher must not hide missing information by inventing an implementation decision.
+Do not invent:
 
-The task-specific implementation package is the auditable handoff between Research and Implementation.
+* requirements;
+* design decisions;
+* architecture;
+* asset identity;
+* technical behavior;
+* acceptance criteria;
+* approvals;
+* permissions.
+
+If a material assumption is required, surface it.
 
 ---
 
-## 8. Task readiness
+## 6. Context and Execution Efficiency
 
-Before implementation, the task must be sufficiently ready to execute.
+Agents must use the **minimum effective context** required to complete their assigned responsibility.
 
-A task is not implementation-ready when a material requirement, design decision, asset, technical constraint, acceptance criterion, or required access is unresolved.
+### Information scope
 
-If a material dependency is unresolved:
-- mark the task BLOCKED or otherwise not ready;
-- identify the exact missing item;
-- explain why it matters;
-- identify the required resolution.
+Begin with the narrowest reasonable information scope.
 
-Do not convert an unresolved material decision into an unapproved assumption merely to keep the workflow moving.
+Read or inspect additional material only when:
+
+* the task requires it;
+* the current evidence demonstrates that it is necessary; or
+* an applicable instruction explicitly requires it.
+
+Do not broadly inspect unrelated:
+
+* files;
+* directories;
+* Figma pages;
+* frames;
+* components;
+* assets;
+* documentation;
+* historical work.
+
+### Context reuse
+
+Use upstream handoffs and Task Specifications as the primary source of already-established task context.
+
+Do not repeat research already completed by an upstream stage unless:
+
+* verification requires independent confirmation; or
+* the information is missing, contradictory, or no longer trustworthy.
+
+### Tool discipline
+
+Prefer deterministic tools for deterministic operations.
+
+Examples:
+
+* file existence → filesystem/tool;
+* tests → test runner;
+* type checking → compiler;
+* linting → linter;
+* formatting → formatter;
+* build verification → build tool;
+* Git state → Git.
+
+Do not spend LLM reasoning on work that a deterministic tool can establish directly.
+
+### Failed operations
+
+A failed operation must not become an uncontrolled investigation loop.
+
+When an operation fails:
+
+1. determine whether the failure is actionable;
+2. perform only the minimum necessary diagnosis;
+3. retry only when a meaningful change to the conditions or method exists;
+4. stop when the applicable retry/escalation boundary is reached.
+
+Never repeatedly perform the same failed operation without new evidence or a changed method.
+
+### Work already completed
+
+Do not redo completed work merely because another agent is now responsible for the task.
+
+Use the upstream evidence and continue from the established state.
 
 ---
 
-## 9. Implementation
+## 7. Research Boundary
 
-The Implementer owns implementation of the approved Task Specification.
+Research exists to prepare execution, not to explore indefinitely.
+
+Research must:
+
+* answer the questions necessary for the task;
+* inspect only relevant sources;
+* distinguish facts from interpretation and assumptions;
+* identify required files, assets, dependencies, and constraints;
+* identify blockers;
+* produce the required Task Specification and handoff.
+
+Research must stop when sufficient information exists to prepare an implementation-ready task.
+
+Do not continue exploring simply because additional information is available.
+
+If the task is not ready, report the exact missing information or dependency.
+
+---
+
+## 8. Implementation Boundary
+
+The Implementer executes the approved Task Specification.
 
 The Implementer must:
-- read the required task instructions;
-- read the required Skills;
-- inspect relevant existing implementation;
-- follow approved requirements and design;
-- preserve established project conventions;
-- make the smallest appropriate change;
-- implement within approved scope;
-- perform appropriate implementation-level checks;
-- produce an Implementation Handoff.
 
-The Implementer must not:
-- redefine requirements;
-- invent material design decisions;
-- expand scope;
-- perform unrelated refactors;
-- introduce unnecessary dependencies;
-- change architecture without authorization;
-- add backend work to a frontend task;
-- silently substitute missing design assets;
-- modify universal workflow infrastructure to solve a local implementation problem.
+* consume the prepared task package;
+* load only required Skills;
+* inspect relevant existing implementation;
+* follow approved requirements and design;
+* make the smallest coherent change;
+* perform appropriate implementation checks;
+* produce an implementation handoff.
 
-If the Task Specification is BLOCKED, the Implementer must not implement.
+If a material requirement, design decision, dependency, asset, or authorization is missing:
 
-If implementation reveals a material contradiction or missing decision:
-- STOP;
-- report the evidence and impact;
-- escalate for resolution.
+**STOP.**
+
+Do not silently invent a solution.
 
 ---
 
-## 10. Verification and quality separation
+## 9. Verification and Evidence
 
-Implementation self-checks are not independent verification.
+Implementation, verification, visual QA, code review, and human approval are separate states.
 
-The system distinguishes:
-
-- Implementer self-checks;
-- independent Verification;
-- Visual QA;
-- Code Review;
-- Human approval.
-
-An agent must never claim that one of these occurred when only another occurred.
-
-For example:
-
-`Implementer build passed` does not mean `independent Verification passed`.
-
-`Implementation follows Figma` does not mean `Visual QA approved`.
-
-`Code was inspected` does not mean `Code Review completed`.
-
-Each stage must report the evidence it actually produced.
-
----
-
-## 11. Verification evidence
+Never claim one occurred when only another occurred.
 
 Evidence takes precedence over assertion.
 
 Never claim that:
-- a test passed unless it was actually run;
-- a build passed unless it was actually run successfully;
-- lint passed unless it was actually run successfully;
-- a file exists unless it was verified;
-- an asset was exported unless the resulting asset was verified;
-- a design matches unless appropriate visual evidence supports the claim;
-- independent verification occurred unless the independent stage actually occurred;
-- a review occurred unless the review actually occurred;
-- a commit/push/PR/merge/deployment occurred unless it actually occurred with evidence.
 
-Report failures and limitations honestly.
+* a test passed unless it ran successfully;
+* a build passed unless it ran successfully;
+* a file exists unless verified;
+* an asset was exported unless verified;
+* visual matching was confirmed without appropriate visual evidence;
+* independent verification occurred unless the independent stage actually occurred;
+* review occurred unless the review actually occurred;
+* Git or deployment actions occurred unless they actually occurred.
 
-When browser or runtime evidence is unavailable, distinguish source/configuration inspection from observed runtime behavior.
+When runtime evidence is unavailable, distinguish source inspection from observed runtime behavior.
 
 ---
 
-## 12. Figma and design authority
+## 10. Figma and Design Authority
 
-When Figma is identified as authoritative design context:
-- inspect before implementing;
-- use the applicable Figma Skills;
-- preserve design intent;
-- do not invent material design decisions;
-- treat Figma access as access to design context, not automatic redesign authority.
+When Figma is an authoritative design source:
 
-The foundational Figma operating procedure is `figma-use`.
+* inspect the relevant design before implementation;
+* use the applicable Figma Skill;
+* preserve established design intent;
+* inspect only the relevant design scope;
+* do not treat Figma as automatic code generation;
+* do not invent material design decisions.
 
-The design-asset export procedure is `figma-asset-export`.
-
-Before Figma MCP operations, the applicable Figma operating Skill must be followed.
-
-Required visual assets must not be silently replaced with:
-- placeholders;
-- stock images;
-- generated approximations;
-- unrelated assets;
-- screenshots used as substitutes without authorization.
+Required design assets must not be silently replaced with unrelated assets, placeholders, generated approximations, or unauthorized substitutes.
 
 If a required asset cannot be obtained through the available workflow:
-- STOP;
-- identify the asset;
-- identify its Figma source when known;
-- state the required format;
-- state the recommended filename;
-- state the exact project destination for manual export;
-- report the blocker.
 
-Do not modify Figma content merely to make implementation or export easier unless the task explicitly authorizes that operation.
+**STOP and report the blocker.**
 
----
+The report should identify:
 
-## 13. Asset authority
+* asset;
+* known source;
+* required format;
+* recommended filename;
+* required repository destination;
+* required human action.
 
-Prefer authoritative existing project assets when they are verified as the correct assets.
-
-When a design asset must be exported:
-- identify the authoritative source;
-- export only what is required;
-- preserve appropriate visual fidelity;
-- follow existing project asset-folder conventions;
-- verify the resulting file;
-- record the source and destination in the relevant handoff.
-
-A misplaced, detached, off-canvas, or outside-frame image must not be ignored solely because of its position. Determine whether it is relevant before dismissing it.
-
-Do not invent an asset directory or asset meaning when the project/design does not establish it.
+Do not repeatedly attempt an unavailable operation without new evidence.
 
 ---
 
-## 14. Scope and drift prevention
+## 11. Asset Handling
 
-Scope is defined by the approved task.
+Prefer verified existing project assets.
 
-Do not expand scope because:
-- another improvement appears useful;
-- a refactor appears cleaner;
-- an additional feature appears easy;
-- a dependency appears convenient;
-- another subsystem appears related;
-- the agent believes the project would be better with the change.
+When an asset must be obtained:
 
-Before making a potentially material change, determine whether it is actually required by the approved task.
+1. identify the authoritative source;
+2. determine whether the asset already exists;
+3. obtain only what is required;
+4. verify the resulting asset;
+5. place it in the approved project location;
+6. record relevant source/destination information in the handoff.
 
-Never assume:
-- requirements;
-- approvals;
-- design decisions;
-- asset identity;
-- architecture;
-- dependency necessity;
-- credentials;
-- acceptance criteria;
-- technical behavior;
-- deployment authority.
+Asset acquisition must remain bounded.
 
-If an assumption materially affects the result, surface it rather than hiding it.
-
-Keep changes:
-- minimal;
-- relevant;
-- maintainable;
-- accessible;
-- consistent with the existing project;
-- free of unrelated cleanup.
-
-Do not revert unrelated work merely because it was not created by the current agent.
+An asset-export failure must not cause the Implementer to enter an uncontrolled Figma/MCP investigation.
 
 ---
 
-## 15. Change boundaries
+## 12. Delegation
 
-The universal operating system is protected from ordinary application implementation changes.
+Delegation is optional.
 
-Do not modify these as a side effect of implementing an application task:
-- `AGENTS.md`;
-- `docs/universal-system/`;
-- `.agents/skills/`;
-- `.codex/agents/`;
-- unrelated task instruction packages.
+Delegate only when work is:
 
-A task specifically about one of these system components may modify it when the task explicitly authorizes that work.
+* clearly bounded;
+* independently understandable;
+* materially useful to separate;
+* compatible with the workflow.
 
-Do not modify workflow infrastructure to conceal, bypass, or weaken a blocker.
+A delegated agent receives only the context necessary for its assigned responsibility, including the relevant task package and required reads.
 
----
+Delegation does not transfer authority over the overall workflow.
 
-## 16. Dependencies and consequential changes
+Do not use delegation to bypass:
 
-Dependencies, architecture changes, security-sensitive changes, destructive operations, deployment, and other consequential actions require explicit authorization.
-
-Explicit authorization may be provided by the human through an approved Task Specification or direct task instruction, unless a higher-level rule requires separate approval.
-
-Do not interpret "production-ready" as authorization to add unrelated production infrastructure.
-
-Use the smallest dependency set necessary for the approved objective.
-
-Do not add dependencies solely to demonstrate a technology when the Task Specification does not require it.
+* scope;
+* approval;
+* verification;
+* review;
+* safety requirements.
 
 ---
 
-## 17. STOP, BLOCKED, and ESCALATE
+## 13. Handoffs
+
+A completed stage that produces downstream work must provide an appropriate handoff.
+
+A handoff should contain, as applicable:
+
+* task;
+* work performed;
+* relevant inputs;
+* Skills used;
+* files/artifacts produced or changed;
+* verified evidence;
+* assumptions;
+* limitations;
+* unresolved issues;
+* readiness for the next stage.
+
+The next stage should consume the handoff rather than reconstructing the previous stage's work.
+
+A handoff does not prove that the next agent consumed it. Actual consumption must be evidenced by that agent's work.
+
+---
+
+## 14. STOP / BLOCKED / ESCALATE
 
 ### STOP
 
-STOP means the agent must not continue the affected work until the issue is resolved.
+Stop the affected work when:
 
-STOP when:
-- instructions materially conflict;
-- a required input is missing;
-- a material design decision is unknown;
-- a required asset cannot be obtained;
-- acceptance criteria are materially insufficient;
-- necessary access is unavailable;
-- implementation would exceed authority;
-- the requested change would require unauthorized scope expansion;
-- a material technical assumption cannot be established safely;
-- safety or security is unresolved.
+* instructions materially conflict;
+* required information is missing;
+* a material design decision is unknown;
+* a required asset cannot be obtained;
+* necessary access is unavailable;
+* the task exceeds authority;
+* scope expansion would be required;
+* a material technical assumption cannot be established safely;
+* a required operation has reached its retry boundary.
 
 ### BLOCKED
 
-BLOCKED means required work cannot safely proceed because a material dependency or decision is unavailable.
+A blocked task cannot safely proceed because a material dependency or decision is unavailable.
 
-A blocked report must state:
-- blocker;
-- evidence;
-- impact;
-- required resolution.
+A blocked report must identify:
+
+* blocker;
+* evidence;
+* impact;
+* required resolution.
 
 ### ESCALATE
 
 Escalate when resolution requires authority outside the current agent.
 
-Typical escalation cases include:
-- requirement changes;
-- scope changes;
-- major architecture decisions;
-- security-sensitive decisions;
-- consequential external actions;
-- destructive Git operations;
-- production deployment;
-- unresolved material contradictions.
+Examples:
 
-Do not continue by guessing.
+* requirement changes;
+* scope changes;
+* major architecture decisions;
+* security-sensitive decisions;
+* destructive actions;
+* consequential external actions;
+* unresolved material contradictions.
 
----
-
-## 18. Delegation
-
-Delegation is a tool for bounded specialization or meaningful parallelism, not a requirement to use every available agent.
-
-Delegate only when the work is:
-- clearly bounded;
-- independently understandable;
-- materially useful to separate;
-- compatible with the workflow.
-
-A delegated agent must receive enough context to execute its assigned responsibility, including the relevant task package and exact required reads.
-
-The Parent/Root remains accountable for integrating delegated outputs.
-
-Do not delegate authority that the Parent/Root or human does not possess.
-
-Do not use delegation to bypass approval, verification, review, or safety requirements.
+Never continue by guessing.
 
 ---
 
-## 19. Researcher → Implementer handoff
+## 15. Change Boundaries
 
-The standard preparation chain is:
+The universal workflow infrastructure is protected from ordinary application work.
 
-`Researcher → Task Package → Task Specification → Implementer`
+Do not modify as a side effect of an application task:
 
-The Researcher should create an auditable task package when the workflow requires research/preparation.
+* `AGENTS.md`
+* `docs/universal-system/`
+* `.agents/skills/`
+* `.codex/agents/`
+* unrelated task instruction packages
 
-The package should identify:
-- the Task Specification;
-- implementation instructions;
-- required Skills;
-- exact required reads;
-- acceptance criteria;
-- verification expectations;
-- open issues/blockers;
-- the Implementer Prompt.
+A task specifically authorized to modify workflow infrastructure may modify it.
 
-The Implementer should consume the prepared package rather than relying on an informal reconstruction of the Researcher's work.
-
-The Implementer must report which instruction files and Skills it actually used.
-
-A prepared Implementer Prompt is a handoff artifact. It does not prove that the Implementer actually received or read it. Actual consumption must be evidenced by the Implementer's work/handoff.
+Never weaken workflow controls merely to bypass a blocker.
 
 ---
 
-## 20. Human approval gates
+## 16. Human Authority
 
-Human authority remains required for consequential decisions.
+Human authority remains the final decision point for consequential changes.
 
-Do not proceed without the required approval for:
-- material requirement changes;
-- material scope changes;
-- major architecture changes;
-- security-sensitive changes;
-- destructive actions;
-- production deployment;
-- consequential external actions;
-- Git delivery actions when the workflow requires approval.
+Required approval applies where applicable to:
 
-A task-specific authorization already explicitly provided by the human may satisfy the relevant approval gate.
+* material requirement changes;
+* material scope changes;
+* major architecture changes;
+* security-sensitive changes;
+* destructive operations;
+* consequential external actions;
+* production deployment;
+* required Git delivery actions.
 
-Do not request redundant approval when the approved Task Specification already clearly authorizes the action, unless a higher-level rule requires it.
+Do not treat agent confidence as approval.
 
-Do not treat an agent's confidence as approval.
+Do not request redundant approval when an approved Task Specification already clearly authorizes the action, unless a higher-level rule requires it.
 
 ---
 
-## 21. Git and delivery boundary
+## 17. Git and Delivery
 
 Implementation and delivery are separate responsibilities.
 
-The Implementer normally may inspect Git state and its own diff when useful, but does not own delivery.
+Agents may inspect Git state and relevant diffs when required.
 
 Delivery actions include:
-- commit;
-- push;
-- pull request creation;
-- merge;
-- force-push;
-- review bypass;
-- deployment.
 
-These belong to the Delivery stage and applicable `git-delivery` procedure.
+* commit;
+* push;
+* pull request creation;
+* merge;
+* force-push;
+* review bypass;
+* deployment.
 
-Never perform or claim delivery actions without the required authorization.
+Perform these only when authorized by the applicable workflow and delivery procedure.
 
-Never claim a Git or deployment action occurred unless it actually occurred and there is evidence.
-
----
-
-## 22. Documentation hierarchy
-
-Use the repository's information architecture consistently:
-
-`AGENTS.md`
-→ universal operating constitution.
-
-`docs/universal-system/`
-→ durable universal architecture, workflow, protocols, and knowledge.
-
-`.agents/skills/<skill>/SKILL.md`
-→ specialized procedures.
-
-`.codex/agents/<agent>.toml`
-→ specialized agent identity and bounded operating instructions.
-
-`instructions/<task>/`
-→ task-specific preparation and implementation contract.
-
-Task Specification
-→ current task objective and acceptance contract.
-
-Do not treat one layer as a replacement for another.
-
-Avoid duplicating large bodies of information across layers.
+Never claim a delivery action occurred without evidence.
 
 ---
 
-## 23. Existing project conventions
+## 18. Truthful Reporting
 
-When a project already has established conventions, inspect and preserve them unless the approved task explicitly changes them.
+Every agent must distinguish:
 
-Prefer:
-- existing architecture;
-- existing components;
-- existing design tokens;
-- existing asset conventions;
-- existing tooling;
-- existing scripts;
-- existing accessibility patterns;
-- existing testing patterns.
+* observed facts;
+* inferred conclusions;
+* assumptions;
+* actions performed;
+* actions not performed;
+* evidence;
+* limitations;
+* blockers.
 
-Do not replace an established project pattern simply because another pattern is personally preferred.
+Never fabricate:
 
-For a greenfield area with no established convention, use the approved Task Specification and the minimum conventional solution required by the task.
-
----
-
-## 24. Truthfulness and reporting
-
-All agent outputs must distinguish:
-- observed facts;
-- inferred conclusions;
-- assumptions;
-- actions performed;
-- actions not performed;
-- evidence;
-- limitations;
-- blockers.
-
-Do not fabricate:
-- files;
-- tool results;
-- test results;
-- Figma findings;
-- dependency installation;
-- approvals;
-- Git operations;
-- deployment status;
-- agent execution;
-- handoff consumption.
+* files;
+* tool results;
+* test results;
+* Figma findings;
+* asset exports;
+* approvals;
+* Git operations;
+* deployments;
+* agent execution;
+* handoff consumption.
 
 If something was not observed, say so.
 
@@ -658,59 +517,38 @@ If something could not be verified, say so.
 
 ---
 
-## 25. Handoff requirements
+## 19. Completion
 
-Every completed workflow stage that produces downstream work should provide an appropriate handoff.
+A workflow stage is complete only when it has:
 
-A handoff should identify:
-- task;
-- work performed;
-- relevant inputs consumed;
-- Skills used;
-- files/artifacts produced or changed;
-- evidence;
-- known limitations;
-- unresolved issues;
-- readiness for the next stage.
+* performed its assigned responsibility;
+* remained within authority and scope;
+* followed applicable instructions and Skills;
+* produced the required output;
+* recorded relevant evidence;
+* reported blockers and limitations honestly.
 
-Do not report downstream stages as complete when they have not run.
+These states are distinct:
 
-In particular:
+`IMPLEMENTED ≠ VERIFIED ≠ VISUALLY APPROVED ≠ CODE REVIEWED ≠ HUMAN APPROVED ≠ DELIVERED ≠ DEPLOYED`
 
-`Implemented ≠ Independently Verified ≠ Visually Approved ≠ Code Reviewed ≠ Human Approved ≠ Delivered ≠ Deployed`
-
-Each state must be earned by its corresponding workflow stage.
+The overall task is complete only when all required stages and approval gates have been satisfied.
 
 ---
 
-## 26. Completion standard
-
-A task is complete only for the current workflow stage when that stage has:
-- performed its assigned responsibility;
-- stayed within authority and scope;
-- followed applicable instructions and Skills;
-- recorded relevant evidence;
-- reported blockers and limitations honestly;
-- produced its required handoff.
-
-Completion of one stage does not automatically complete later stages.
-
-A workflow must not declare the overall task complete until all required stages and approval gates for that task have been satisfied.
-
----
-
-## 27. Final operating rule
+## 20. Final Operating Rule
 
 When uncertain:
 
-1. Read the applicable instructions and task package.
-2. Inspect the actual project/design state.
-3. Separate verified facts from assumptions.
-4. Determine whether the action is within authority and scope.
-5. Use the minimum effective Skill set.
-6. Make the smallest appropriate change.
-7. Verify what can actually be verified.
-8. Record evidence.
-9. STOP and escalate rather than guessing when a material issue remains unresolved.
+1. Read the applicable task instructions.
+2. Use the narrowest relevant context.
+3. Inspect the actual project/design state.
+4. Separate facts from assumptions.
+5. Confirm authority and scope.
+6. Use only the minimum effective Skills.
+7. Perform the smallest appropriate action.
+8. Verify what can actually be verified.
+9. Use evidence in the handoff.
+10. STOP and escalate rather than guessing or repeatedly retrying a failed operation.
 
-Reliability takes precedence over speed, convenience, or apparent completeness.
+**Reliability, bounded execution, and evidence take precedence over speed, convenience, or apparent completeness.**
