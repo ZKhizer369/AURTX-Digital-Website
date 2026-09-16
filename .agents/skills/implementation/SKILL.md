@@ -1,6 +1,6 @@
 ---
 name: frontend-implementation
-description: Implement the approved frontend task using the minimum effective context, existing project patterns, verified requirements, and bounded deterministic checks.
+description: Implement the approved frontend task using the minimum effective context, established project architecture, verified requirements, declared technology contract, and bounded deterministic checks.
 ---
 
 # Frontend Implementation
@@ -11,7 +11,7 @@ Implement an approved frontend task within its defined scope.
 
 The objective is:
 
-`APPROVED TASK → MINIMUM RELEVANT CONTEXT → SMALLEST COHERENT CHANGE → TARGETED CHECKS → HANDOFF → STOP`
+`APPROVED TASK → MINIMUM RELEVANT CONTEXT → ARCHITECTURE PLAN → SMALLEST COHERENT CHANGE → TARGETED CHECKS → ARCHITECTURE SELF-CHECK → HANDOFF → STOP`
 
 This Skill governs implementation.
 
@@ -24,15 +24,19 @@ It does not redefine requirements, perform broad research, or deliver through Gi
 1. Implement only the approved task.
 2. Use the minimum effective context.
 3. Inspect the smallest relevant repository area.
-4. Reuse existing project patterns.
-5. Consume upstream research instead of rediscovering it.
-6. Use Figma only for unresolved implementation-specific design evidence.
-7. Use only the Skills required by the task.
-8. Avoid unrelated refactoring.
-9. Use targeted deterministic checks.
-10. Bound failed operations and retries.
-11. Do not continue improving after the task is complete.
-12. Report evidence truthfully.
+4. Follow the project's declared Technology Contract.
+5. Preserve sound existing project patterns.
+6. Consume upstream research instead of rediscovering it.
+7. For substantial React work, establish meaningful component boundaries before or during implementation.
+8. Use the project's declared styling system rather than introducing an unnecessary alternative.
+9. Use Figma only for unresolved implementation-specific design evidence.
+10. Use only the Skills required by the task.
+11. Avoid unrelated refactoring.
+12. Prefer maintainable architecture over compressed or monolithic implementation.
+13. Use targeted deterministic checks.
+14. Bound failed operations and retries.
+15. Do not continue improving after the task is complete.
+16. Report evidence truthfully.
 
 ---
 
@@ -43,10 +47,11 @@ Use, in priority order:
 1. approved Task Specification;
 2. applicable instruction files;
 3. relevant Research Handoff;
-4. required Skills;
-5. relevant existing implementation;
-6. approved design evidence;
-7. deterministic verification tools.
+4. project Technology Contract;
+5. required Skills;
+6. relevant existing implementation;
+7. approved design evidence;
+8. deterministic verification tools.
 
 Do not automatically read:
 
@@ -69,9 +74,16 @@ Confirm:
 - requirements;
 - acceptance criteria;
 - relevant constraints;
+- project Technology Contract;
 - expected checks.
 
 Use the Task Specification as the implementation contract.
+
+If the project Technology Contract exists, follow it.
+
+If the Technology Contract conflicts with the approved task, explicit user requirement, or actual repository state:
+
+`STOP → REPORT CONFLICT → ESCALATE`
 
 If the task is materially unclear or contradictory:
 
@@ -104,12 +116,15 @@ Start from the files identified by the Task Specification or Research Handoff.
 Inspect only enough surrounding implementation to understand:
 
 - existing components;
-- relevant patterns;
-- affected styles;
+- relevant component patterns;
+- page structure;
+- relevant styles;
+- declared styling system;
 - relevant utilities;
 - required route/entry point;
 - relevant assets;
-- integration boundaries.
+- integration boundaries;
+- existing folder conventions.
 
 Expand inspection only when a specific implementation question cannot be answered from the initial context.
 
@@ -126,270 +141,96 @@ Prefer:
 - existing components;
 - existing utilities;
 - existing styles/tokens;
-- existing patterns;
-- existing assets.
+- existing design patterns;
+- existing assets;
+- existing interaction patterns.
 
 Do not create a duplicate abstraction when an appropriate implementation already exists.
 
 Do not refactor existing architecture merely because another structure appears cleaner.
 
----
-
-# 5. Plan the Smallest Coherent Change
-
-Before modifying source, determine:
-
-### Affected Files
-
-Only files necessary for the task.
-
-### Reusable Code
-
-Existing implementation that should be reused.
-
-### New Code
-
-Only what is required.
-
-### Design Inputs
-
-Only verified design information required for implementation.
-
-### Checks
-
-Only the deterministic checks needed to establish task correctness.
-
-Keep the plan proportional to task complexity.
-
-Do not create speculative architecture.
+When existing architecture is clearly unsound and the approved task explicitly requires architectural improvement, apply the component architecture rules below.
 
 ---
 
-# 6. Implement
+# 5. Determine Component Architecture
 
-Make the smallest coherent change that satisfies:
+For substantial React frontend work, determine the minimum coherent component structure before implementation.
 
-- approved requirements;
-- project rules;
-- existing architecture;
-- verified design requirements;
-- relevant accessibility requirements.
+Identify:
 
-Preserve unrelated behavior.
+### Page
 
-Avoid:
+The page or route being implemented or modified.
 
-- unrelated refactors;
-- unnecessary renaming;
-- unnecessary formatting;
-- speculative abstractions;
-- dependency changes without justification;
-- scope expansion.
+### Meaningful Sections
 
----
+Identify independently understandable sections such as:
 
-# 7. Design and Figma
+- header/navigation;
+- hero/banner;
+- feature section;
+- product section;
+- testimonial section;
+- growth/content section;
+- footer.
 
-Use approved design evidence when visual implementation is required.
+The exact sections depend on the page.
 
-Prefer:
+### Existing Components
 
-1. Research Handoff;
-2. Task Specification;
-3. exact Figma reference;
-4. existing project design conventions.
+Identify reusable components that already satisfy part of the requirement.
 
-If the required implementation detail is already established upstream:
+### New Components
 
-`USE IT`
+Identify only the components genuinely required by the task.
 
-Do not reopen Figma unnecessarily.
+### Component Ownership
 
-If a specific unresolved design question materially affects implementation:
+Determine which page, feature, or section owns:
 
-`OPEN EXACT TARGET → INSPECT MINIMUM REQUIRED CONTEXT → RESOLVE → CONTINUE`
+- markup;
+- interaction;
+- local state;
+- data/configuration;
+- styling;
+- supporting assets.
 
-Do not perform broad Figma exploration.
+### Folder Structure
 
-Follow `figma-use` before any Figma MCP operation.
+Use the existing project convention when it is sound.
 
----
+Otherwise, organize new components around meaningful:
 
-# 8. Assets
+- page ownership;
+- feature ownership;
+- section ownership;
+- reusable UI responsibility.
 
-Prefer verified project assets.
-
-If an approved asset already exists:
-
-`REUSE`
-
-If an asset must be obtained from Figma:
-
-- use `frontend-asset-handling`;
-- use `figma-asset-export` only for a specifically identified Figma asset;
-- follow bounded export rules.
-
-Do not independently search the entire Figma asset library.
-
-Do not silently substitute missing assets.
-
-If a mandatory asset cannot be obtained:
-
-`STOP → REPORT EXACT ASSET GAP → ESCALATE`
+Do not create a folder hierarchy merely for visual neatness.
 
 ---
 
-# 9. Handle Uncertainty
+# 6. React Component Architecture Rules
 
-Stop and escalate when implementation reveals a material issue such as:
+For substantial React pages:
 
-- contradictory requirements;
-- missing required information;
-- substantially incompatible architecture;
-- significant dependency requirement;
-- security-sensitive behavior;
-- task scope expansion;
-- unresolved design ambiguity;
-- unavailable required asset.
+- Decompose the page into meaningful section-level React components.
+- Keep the page component primarily responsible for composition and page-level orchestration.
+- Give each substantial section a clear responsibility.
+- Extract independently interactive or behaviorally complex UI into appropriate components.
+- Extract repeated UI patterns when reuse or responsibility justifies the boundary.
+- Keep components cohesive and understandable.
+- Reuse existing sound components instead of recreating equivalent components.
+- Keep related supporting files organized according to project conventions.
+- Keep state and interaction logic close to the component that owns it unless shared state genuinely requires another boundary.
 
-Do not solve consequential ambiguity through personal preference.
-
----
-
-# 10. Dependency Changes
-
-Do not add, remove, upgrade, downgrade, or replace dependencies merely for convenience.
-
-A dependency change is justified only when:
-
-- the approved task requires it;
-- the existing project cannot reasonably satisfy the requirement;
-- the change is within the applicable authorization policy.
-
-If a significant dependency change becomes necessary but is outside the approved scope:
-
-`STOP → REPORT → ESCALATE`
-
----
-
-# 11. Run Targeted Checks
-
-After implementation, run the smallest deterministic checks that establish the relevant acceptance criteria.
-
-Possible checks include:
-
-- type checking;
-- linting;
-- targeted tests;
-- targeted build;
-- targeted runtime check;
-- accessibility check.
-
-Do not automatically run every available check.
-
-Prefer:
-
-`TARGETED CHECK → EVIDENCE`
-
-over:
-
-`RUN EVERYTHING`
-
-A broader check is justified when:
-
-- project policy requires it;
-- the change affects shared infrastructure;
-- the targeted check cannot establish correctness;
-- a specific regression risk requires it.
-
----
-
-# 12. Failure and Retry Control
-
-If a command or implementation operation fails:
-
-1. capture the actual failure;
-2. determine whether the failure is actionable;
-3. make one meaningful corrective attempt when justified;
-4. verify the result.
-
-If it fails again:
-
-`STOP → REPORT → BLOCKED`
-
-Do not repeatedly:
-
-- rerun the same command;
-- rebuild without changing conditions;
-- reinstall dependencies;
-- inspect unrelated code;
-- reopen Figma;
-- retry asset export.
-
-Use:
-
-`ATTEMPT → MEANINGFUL RETRY → STOP`
-
----
-
-# 13. Inspect the Resulting Change
-
-Before handoff:
-
-- inspect the modified files;
-- inspect the actual diff;
-- confirm scope;
-- confirm the intended requirements are addressed;
-- identify accidental changes;
-- identify unresolved issues.
-
-Do not perform a broad repository audit.
-
-The diff is the primary final implementation inspection.
-
----
-
-# 14. Completion Test
-
-Implementation is ready for handoff when:
-
-- approved objective is implemented;
-- applicable requirements are addressed;
-- changes remain within scope;
-- required checks have been run;
-- diff has been inspected;
-- unresolved issues are reported.
-
-If these conditions are satisfied:
-
-`STOP`
-
-Do not continue with optional improvements.
-
----
-
-# Implementation Handoff
-
-Return a compact handoff:
+A healthy structure generally resembles:
 
 ```text
-Objective:
-[what was implemented]
-
-Files Changed:
-[list]
-
-Requirements Addressed:
-[relevant criteria]
-
-Verification:
-[checks actually performed + results]
-
-Unverified:
-[if applicable]
-
-Remaining Issues:
-[if applicable]
-
-Scope:
-[WITHIN SCOPE / SCOPE CONCERN]
+Page
+├── Section
+├── Section
+├── Section
+├── Interactive Feature
+└── Section

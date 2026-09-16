@@ -20,13 +20,16 @@ The Task Specification tells downstream agents:
 - what is in scope;
 - what evidence establishes the requirements;
 - what must be verified;
-- what unresolved issues block implementation.
+- what unresolved issues block implementation;
+- what architecture and technology constraints materially affect implementation.
 
 It is **not** a project report.
 
 It is **not** a duplicate Research Handoff.
 
 It is **not** an implementation transcript.
+
+It is **not** a speculative architecture document.
 
 ---
 
@@ -43,7 +46,10 @@ It is **not** an implementation transcript.
 9. Do not invent missing requirements.
 10. Do not prescribe speculative architecture.
 11. Do not create unnecessary documentation.
-12. Stop when the implementation contract is complete.
+12. Reuse valid upstream findings instead of rediscovering them.
+13. Include architecture information when it materially affects implementation.
+14. Respect the project's declared Technology Contract.
+15. Stop when the implementation contract is complete.
 
 ---
 
@@ -58,7 +64,8 @@ Create one when the task involves meaningful coordination, such as:
 - asset dependencies;
 - verification requirements;
 - delegation;
-- multiple workflow stages.
+- multiple workflow stages;
+- substantial frontend implementation.
 
 A formal Task Specification is not required for trivial work that is already unambiguous and safely executable.
 
@@ -71,10 +78,11 @@ Use:
 1. approved human task;
 2. applicable instruction files;
 3. verified Research Handoff;
-4. authoritative project references;
-5. approved design/Figma references;
-6. existing implementation evidence;
-7. relevant deterministic evidence.
+4. project Technology Contract;
+5. authoritative project references;
+6. approved design/Figma references;
+7. existing implementation evidence;
+8. relevant deterministic evidence.
 
 Do not automatically copy or reread all source material.
 
@@ -130,6 +138,7 @@ Possible categories:
 - integration point;
 - important technical constraint;
 - project convention;
+- Technology Contract requirement;
 - verification dependency.
 
 Prefer:
