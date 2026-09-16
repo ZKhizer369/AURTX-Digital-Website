@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-400.ttf');font-weight:400;font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-500.ttf');font-weight:500;font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-600.ttf');font-weight:600;font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-700.ttf');font-weight:700;font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-800.ttf');font-weight:800;font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/homepage/inter-900.ttf');font-weight:900;font-display:swap}
+@font-face{font-family:Lato;src:url('./assets/homepage/lato-400.ttf');font-weight:400;font-display:swap}
+@font-face{font-family:Lato;src:url('./assets/homepage/lato-700.ttf');font-weight:700;font-display:swap}
+@font-face{font-family:Sora;src:url('./assets/homepage/sora-600.ttf');font-weight:600;font-display:swap}
+
+@font-face {
+  font-family: remixicon;
+  src: url('remixicon/fonts/remixicon.woff2') format('woff2');
+  font-display: swap;
+}
+
+*{
+  scroll-behavior: smooth;
+}
+
+@theme {
+  --font-sans: Inter, sans-serif;
+}
+
+:root {
+  --button-gradient: linear-gradient(90deg, #232827 8.5933%, #2c3231 20.051%, #000 66.359%, #091411 83.546%);
+  --button-gradient-green: linear-gradient(90deg, #086052 8.5933%, #0B7462 20.051%, #06483F 66.359%, #073D35 83.546%);
+}
+
+:focus-visible {
+  outline: 3px solid #16a886;
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
