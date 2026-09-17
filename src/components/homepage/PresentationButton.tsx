@@ -1,4 +1,0 @@
-export function PresentationButton({ children, outline = false }: { children: string; outline?: boolean }) {
-  // No destination has been supplied for these presentation-only calls to action.
-  return <button type="button" aria-disabled="true" className={"gradient-button relative isolate inline-flex h-10.75 min-w-35.5 items-center justify-center overflow-hidden rounded-[35px] border-white px-4.5 whitespace-nowrap text-white before:absolute before:inset-0 before:-z-10 before:-translate-x-full before:bg-(image:--button-gradient) before:transition-transform before:duration-450 before:ease-[ease] before:content-[''] hover:before:translate-x-0 focus-visible:before:translate-x-0 hover:shadow-[0_5px_20px_#0003] focus-visible:shadow-[0_5px_20px_#0003]" + (outline ? " outline-button border-2 before:bg-(image:--button-gradient-green) max-[540px]:w-full" : " border bg-(image:--button-gradient)")}>{children}</button>
-}

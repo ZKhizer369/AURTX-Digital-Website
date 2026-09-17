@@ -1,10 +1,16 @@
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import FeaturesPage from './pages/FeaturesPage'
+import { HashNavigation } from './components/HashNavigation'
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-    </Routes>
+    <>
+      <HashNavigation />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/features" element={<FeaturesPage />} />
+      </Routes>
+    </>
   )
 }

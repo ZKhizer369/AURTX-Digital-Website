@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
-import { RemixIcon } from './RemixIcon'
+import { RemixIcon } from '../ui/RemixIcon'
 
 const controlClass = 'grid shrink-0 place-items-center rounded-full border border-white/20 bg-black/35 text-white backdrop-blur-md transition-colors hover:bg-black/60 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-45'
 const formatTime = (seconds: number) => `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`

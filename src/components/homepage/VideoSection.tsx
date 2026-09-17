@@ -1,5 +1,5 @@
 import { picture, video } from './assets'
-import { SectionHeading } from './SectionHeading'
+import { SectionHeading } from '../ui/SectionHeading'
 import { VideoPlayer } from './VideoPlayer'
 
 export function VideoSection() {

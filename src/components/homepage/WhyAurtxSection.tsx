@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { picture } from './assets'
-import { SectionHeading } from './SectionHeading'
+import { SectionHeading } from '../ui/SectionHeading'
 const reasons = [
   ['All Your Work in One Place', 'Manage client conversations, customers, tasks, and team activity without switching between different tools.'],
   ['Never Miss a Client Message', "Keep your WhatsApp conversations organized so important customer messages don't get overlooked."],

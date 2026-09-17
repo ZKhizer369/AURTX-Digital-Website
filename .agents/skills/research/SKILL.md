@@ -229,18 +229,37 @@ Do not turn research into an asset-export operation.
 
 Inspect architecture only to the extent necessary to determine how the task fits the existing project.
 
-Establish, when relevant:
+Before proposing or creating page-specific components, check whether the project already provides an appropriate reusable implementation.
 
+When relevant, establish:
+
+- existing shared layout components;
+- existing shared UI components;
 - existing component to extend;
 - existing utility to reuse;
 - existing route;
 - existing state/data pattern;
 - existing styling/token pattern;
-- existing integration boundary.
+- existing integration boundary;
+- existing implementation of equivalent UI on another page.
+
+For new pages, explicitly check for existing site-wide elements and repeated patterns such as:
+
+- header/navigation;
+- footer;
+- buttons;
+- section headings;
+- page containers;
+- common cards;
+- repeated interactive patterns.
+
+Prefer reuse of an existing suitable implementation over proposing a duplicate.
 
 Do not redesign architecture during research.
 
 Do not propose a new architecture when an existing pattern already satisfies the task.
+
+Research should identify reuse opportunities, not design a new component system.
 
 ---
 

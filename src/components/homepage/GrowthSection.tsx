@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { picture, icon } from './assets'
-import { RemixIcon } from './RemixIcon'
+import { RemixIcon } from '../ui/RemixIcon'
 
 export function GrowthSection() {
   return <section style={{ '--ribbed-background': 'url(' + picture('ribbed-background.png') + ')' } as CSSProperties} className="growth-section mx-auto grid max-w-325 grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)] items-stretch gap-16 px-6 pt-6 pb-16 [@media(max-width:920px)]:grid-cols-1 [@media(max-width:639px)]:px-5 [@media(max-width:639px)]:pt-3 [@media(max-width:639px)]:pb-12 max-[990px]:gap-7" aria-label="Work smarter and stay connected">
