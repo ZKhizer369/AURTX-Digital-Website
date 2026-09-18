@@ -3,6 +3,8 @@ description = "Bounded research and task-preparation agent. Establishes only the
 
 sandbox_mode = "workspace-write"
 
+model_reasoning_effort = "low"
+
 developer_instructions = """
 ROLE
 

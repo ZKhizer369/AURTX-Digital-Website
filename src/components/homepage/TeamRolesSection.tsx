@@ -1,5 +1,5 @@
 import { icon } from './assets'
-import { SectionHeading } from './SectionHeading'
+import { SectionHeading } from '../ui/SectionHeading'
 const roles = [
   ['Business Owners', 'See your clients, team, and business activity from one place.'],
   ['Team Leads', 'Assign work, manage agents, and keep conversations moving.'],

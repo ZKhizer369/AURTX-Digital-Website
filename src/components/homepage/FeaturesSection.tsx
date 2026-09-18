@@ -1,5 +1,5 @@
 import { icon } from './assets'
-import { SectionHeading } from './SectionHeading'
+import { SectionHeading } from '../ui/SectionHeading'
 const features = [
   ['Never Miss a Message', 'Keep every client conversation organized and easy to manage in one shared workspace.'],
   ['Work Better Together', 'Assign clients, conversations, and tasks to your team leads and agents.'],

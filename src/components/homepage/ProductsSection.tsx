@@ -3,8 +3,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, Navigation, Autoplay } from 'swiper/modules'
 import type { Swiper as SwiperInstance } from 'swiper'
 import { picture, icon } from './assets'
-import { RemixIcon } from './RemixIcon'
-import { SectionHeading } from './SectionHeading'
+import { RemixIcon } from '../ui/RemixIcon'
+import { SectionHeading } from '../ui/SectionHeading'
 const products = [['Aurtx Digital', 'Client & Team Management', 417, 556], ['Aurtx AI', 'AI Client Assistance', 501, 485], ['Aurtx Mobile', 'Your Workspace, Anywhere', 348, 460]] as const
 export function ProductsSection() {
   const slider = useRef<SwiperInstance | null>(null)

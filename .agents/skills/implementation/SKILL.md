@@ -134,16 +134,22 @@ Do not perform repository-wide exploration.
 
 # 4. Determine Reuse Before Creating
 
-Before creating new code, check whether an existing project implementation can satisfy the requirement.
+Before creating new code, check the project's established reusable-component knowledge first.
+
+Use the project's component/architecture registry or other established project knowledge to identify existing implementations that may satisfy the requirement.
 
 Prefer:
 
-- existing components;
+- existing shared components;
 - existing utilities;
 - existing styles/tokens;
 - existing design patterns;
 - existing assets;
 - existing interaction patterns.
+
+When an existing implementation is identified as reusable, inspect only that specific implementation as needed to verify compatibility with the current task.
+
+Do not scan unrelated pages or broadly inspect the project merely to discover whether reusable components exist.
 
 Do not create a duplicate abstraction when an appropriate implementation already exists.
 

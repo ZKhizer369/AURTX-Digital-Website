@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import { picture } from './assets'
-import { Header } from './Header'
-import { PresentationButton } from './PresentationButton'
+import { Header } from '../layout/Header'
+import { PresentationButton } from '../ui/PresentationButton'
 export function HeroSection() {
   return <div className="hero-wrap relative pb-13.5">
     <section style={{ '--ribbed-background': 'url(' + picture('ribbed-background.png') + ')' } as CSSProperties} className="hero rounded-2xl relative pt-5 px-5 bg-[#080e0d] bg-(image:--ribbed-background) bg-cover bg-center bg-no-repeat text-white [@media(max-width:639px)]:pb-8.75" aria-labelledby="hero-title">

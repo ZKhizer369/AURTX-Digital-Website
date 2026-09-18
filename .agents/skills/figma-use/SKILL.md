@@ -334,6 +334,28 @@ Do not invent a requirement.
 
 ---
 
+## Figma Is a Visual/Product Specification
+
+Treat Figma primarily as a specification of the intended visual result, layout, hierarchy, and interaction behavior—not as a literal DOM or React implementation.
+
+Do not reproduce Figma artifacts literally when they are only demonstrating the design or interaction.
+
+In particular:
+
+- Do not implement cursor/pointer icons shown in a design as actual page UI unless the design clearly establishes that they are persistent content.
+- Do not implement editor artifacts, measurement guides, annotations, selection indicators, or other design-tool artifacts as application UI.
+- Do not treat a screenshot of a hover state as a separate visual element that must always be rendered.
+- When a pointer or highlighted state is shown over an element, interpret it as evidence of the intended interaction unless the design clearly indicates otherwise.
+- Implement the underlying interaction behavior using the appropriate web interaction pattern rather than reproducing the demonstration artifact.
+- Do not map every Figma layer, frame, or group directly to a React component.
+- Do not treat Figma dimensions as fixed browser dimensions when doing so would produce impractical sizing or break responsive behavior.
+- Adapt dimensions, spacing, typography, and layout to the target viewport and responsive web context while preserving the intended visual hierarchy and design language.
+- Preserve the design intent when translating from Figma to a functional web interface.
+
+When Figma evidence is ambiguous, use the Task Specification, existing project architecture, established reusable components, and normal web implementation patterns to determine the implementation. Do not invent persistent UI from a visual demonstration alone.
+
+---
+
 # Design Evidence Classification
 
 Classify Figma findings as:
