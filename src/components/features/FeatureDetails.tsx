@@ -31,8 +31,8 @@ const details = [
 ] as const
 
 export function FeatureDetails() {
-  return <>{details.map((detail, index) => <section key={detail.id} id={detail.id} aria-labelledby={`${detail.id}-title`} className={`mx-auto grid max-w-[1300px] items-center gap-8 px-5 py-10 sm:px-6 sm:py-16 min-[1100px]:gap-12 ${index === 0 ? 'min-[1100px]:grid-cols-[664fr_726fr]' : 'min-[1100px]:grid-cols-[726fr_664fr]'}`}>
-    <img src={detail.image} width="664" height="832" alt={detail.alt} loading="lazy" className={`w-full rounded-xl object-cover max-[1099px]:mx-auto max-[1099px]:max-w-[520px] ${index === 1 ? 'min-[1100px]:order-2' : ''}`} />
+  return <>{details.map((detail, index) => <section key={detail.id} id={detail.id} aria-labelledby={`${detail.id}-title`} className={`mx-auto grid max-w-325 items-center gap-8 px-5 py-10 sm:px-6 sm:py-16 min-[1100px]:gap-12 ${index === 0 ? 'min-[990px]:grid-cols-[664fr_726fr]' : 'min-[1100px]:grid-cols-[726fr_664fr]'}`}>
+    <img src={detail.image} width="664" height="832" alt={detail.alt} loading="lazy" className={`w-full rounded-xl object-cover max-[990px]:mx-auto max-[990px]:max-w-full ${index === 1 ? 'min-[1100px]:order-2' : ''}`} />
     <div className="min-w-0">
       <h2 id={`${detail.id}-title`} className="text-[clamp(26px,2.6vw,36px)] leading-tight font-extrabold">{detail.title}</h2>
       <p className="mt-4 text-base leading-relaxed text-black/64 sm:text-lg">{detail.description}</p>
@@ -40,13 +40,13 @@ export function FeatureDetails() {
       <ul className={`grid gap-5 ${detail.benefitsLabel ? 'mt-4' : 'mt-8'}`}>
         {detail.benefits.map(([title, description]) => <li key={title} className="flex items-start gap-4">
           <img src={check} width="60" height="60" alt="" loading="lazy" className="size-11 shrink-0" />
-          <div className="max-w-[493px]">
+          <div className="max-w-123.25">
             <h3 className="text-lg leading-snug font-medium text-[#0b6b53]">{title}</h3>
             <p className="mt-1 text-base leading-relaxed text-black/64">{description}</p>
           </div>
         </li>)}
       </ul>
-      <div className="pt-7"><PresentationButton tone="green">{detail.action}</PresentationButton></div>
+      <div className="pt-7 max-md:w-full"><PresentationButton tone="green" outline>{detail.action}</PresentationButton></div>
     </div>
   </section>)}</>
 }

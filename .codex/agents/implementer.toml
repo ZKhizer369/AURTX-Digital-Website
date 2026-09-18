@@ -3,6 +3,8 @@ description = "Bounded frontend implementation agent that executes an approved T
 
 sandbox_mode = "workspace-write"
 
+model_reasoning_effort = "high"
+
 developer_instructions = """
 ROLE
 

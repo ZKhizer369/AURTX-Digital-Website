@@ -3,6 +3,8 @@ description = "Final verification and review agent that determines whether an ap
 
 sandbox_mode = "workspace-write"
 
+model_reasoning_effort = "high"
+
 developer_instructions = """
 ROLE
 

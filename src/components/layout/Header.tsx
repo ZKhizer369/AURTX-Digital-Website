@@ -46,7 +46,7 @@ export function Header({ page = 'home', inset = false }: { page?: 'home' | 'feat
     return () => { cancelAnimationFrame(openingFrame); cancelAnimationFrame(focusFrame); document.body.style.overflow = oldOverflow; document.removeEventListener('keydown', close); window.removeEventListener('resize', resize) }
   }, [menuOpen, closeMenu])
 
-  return <header className={`site-header z-20 mx-auto rounded-3xl bg-[#F5F8F7] flex h-20 max-w-380 items-center justify-between gap-6 px-6 py-3 text-[#0b6b53] [&>a]:shrink-0 [&>a_img]:h-auto [&>a_img]:w-16.25 before:absolute before:inset-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#f5f8f7] before:content-[''] [@media(max-width:1099px)]:gap-4 [@media(max-width:639px)]:h-18 [@media(max-width:639px)]:px-5 [@media(max-width:639px)]:[&>a_img]:w-14.5 ${inset ? 'relative shadow-[0_4px_13px_1px_#0004] before:hidden' : ''}`}>
+  return <header className={`site-header z-20 mx-auto rounded-3xl bg-[#F5F8F7] flex h-20 max-w-380 items-center justify-between gap-6 px-6 py-3 text-[#0b6b53] [&>a]:shrink-0 [&>a_img]:h-auto [&>a_img]:w-16.25 before:absolute before:inset-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#f5f8f7] before:content-[''] [@media(max-width:1099px)]:gap-4 [@media(max-width:639px)]:h-18 [@media(max-width:639px)]:px-5 [@media(max-width:639px)]:[&>a_img]:w-14.5 ${inset ? 'relative shadow-[0px_1px_8px_0.1px_#0004] before:hidden' : ''}`}>
     <a href={page === 'features' ? '/' : '#home'} aria-label="Aurtx Digital home">
       <img className='max-[639px]:h-6 max-[639px]:w-6' src={icon('logo')} width="86" height="64" alt="Aurtx Digital" />
     </a>
