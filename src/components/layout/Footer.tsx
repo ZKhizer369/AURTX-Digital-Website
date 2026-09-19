@@ -1,7 +1,7 @@
 import { icon } from '../homepage/assets'
-export function Footer({ page = 'home', inset = false }: { page?: 'home' | 'features'; inset?: boolean }) {
-  const home = page === 'features' ? '/' : '#home'
-  const homeSection = (hash: string) => page === 'features' ? `/${hash}` : hash
+export function Footer({ page = 'home' }: { page?: 'home' | 'features' | 'how-it-works'; inset?: boolean }) {
+  const home = page !== 'home' ? '/' : '#home'
+  const homeSection = (hash: string) => page !== 'home' ? `/${hash}` : hash
   return <footer id="contact" className='site-footer bg-[#161b1a] px-6 pt-10 pb-6 mx-4 mb-4 max-[990px]:mx-2 max-[990px]:mb-2 rounded-2xl font-[Lato,sans-serif] text-white [@media(max-width:540px)]:pt-8'>
     <div className="footer-top mx-auto grid max-w-313 grid-cols-[1.4fr_1fr_1fr_1fr] items-start gap-10 [@media(540px<width<=767px)]:grid-cols-2 [@media(max-width:767px)]:gap-8 [@media(max-width:540px)]:grid-cols-1">
       <div className="footer-brand [&>img]:h-auto [&>img]:w-18.75 [&>p]:mt-6 [&>p]:max-w-73.5 [&>p]:text-lg [&>p]:leading-[1.45] [@media(max-width:540px)]:[&>p]:max-w-none">
@@ -18,7 +18,7 @@ export function Footer({ page = 'home', inset = false }: { page?: 'home' | 'feat
         <h2 className='text-[22px]!'>Quick Links</h2>
         <a href={home}>Home</a>
         <a href="/features" aria-current={page === 'features' ? 'page' : undefined}>Feature</a>
-        <a href={homeSection('#how-it-works')}>How It Works</a>
+        <a href="/how-it-works" aria-current={page === 'how-it-works' ? 'page' : undefined}>How It Works</a>
       </div>
       <div className="footer-column flex flex-col gap-3 pt-2 text-[18px] leading-normal text-[#d9e6e1] [&>h2]:mb-0.75 [&>h2]:text-[19px] [&>h2]:font-bold [&>h2]:text-white [&>a]:transition-[color,text-shadow] [&>a]:duration-300 [&>a:hover]:text-white [&>a:hover]:[text-shadow:0_0_12px_#9af6d98c] [@media(max-width:639px)]:wrap-anywhere [@media(max-width:540px)]:pt-0">
         <h2 className='text-[22px]!'>Company</h2>
