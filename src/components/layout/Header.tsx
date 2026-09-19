@@ -2,10 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { icon } from '../homepage/assets'
 import { PresentationButton } from '../ui/PresentationButton'
 import { RemixIcon } from '../ui/RemixIcon'
-const homeNavigation = [['Home', '#home'], ['Feature', '/features'], ['How It Work', '#how-it-works'], ['About Us', '#why-aurtx'], ['Contact', '#contact']] as const
-const featuresNavigation = [['Home', '/'], ['Feature', '/features'], ['How It Works', '/#how-it-works'], ['About Us', '/#why-aurtx'], ['Contact', '#contact']] as const
-export function Header({ page = 'home', inset = false }: { page?: 'home' | 'features'; inset?: boolean }) {
-  const navigation = page === 'features' ? featuresNavigation : homeNavigation
+const homeNavigation = [['Home', '#home'], ['Feature', '/features'], ['How It Works', '/how-it-works'], ['About Us', '#why-aurtx'], ['Contact', '#contact']] as const
+const featuresNavigation = [['Home', '/'], ['Feature', '/features'], ['How It Works', '/how-it-works'], ['About Us', '/#why-aurtx'], ['Contact', '#contact']] as const
+export function Header({ page = 'home', inset = false }: { page?: 'home' | 'features' | 'how-it-works'; inset?: boolean }) {
+  const navigation = page !== 'home' ? featuresNavigation : homeNavigation
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuClosing, setMenuClosing] = useState(false)
   const [activeHash, setActiveHash] = useState(() => window.location.hash || '#home')
@@ -47,7 +47,7 @@ export function Header({ page = 'home', inset = false }: { page?: 'home' | 'feat
   }, [menuOpen, closeMenu])
 
   return <header className={`site-header z-20 mx-auto rounded-3xl bg-[#F5F8F7] flex h-20 max-w-380 items-center justify-between gap-6 px-6 py-3 text-[#0b6b53] [&>a]:shrink-0 [&>a_img]:h-auto [&>a_img]:w-16.25 before:absolute before:inset-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[#f5f8f7] before:content-[''] [@media(max-width:1099px)]:gap-4 [@media(max-width:639px)]:h-18 [@media(max-width:639px)]:px-5 [@media(max-width:639px)]:[&>a_img]:w-14.5 ${inset ? 'relative shadow-[0px_1px_8px_0.1px_#0004] before:hidden' : ''}`}>
-    <a href={page === 'features' ? '/' : '#home'} aria-label="Aurtx Digital home">
+    <a href={page !== 'home' ? '/' : '#home'} aria-label="Aurtx Digital home">
       <img className='max-[639px]:h-6 max-[639px]:w-6' src={icon('logo')} width="86" height="64" alt="Aurtx Digital" />
     </a>
     <button ref={menuButton} className="menu-toggle hidden [@media(max-width:1099px)]:order-3 [@media(max-width:1099px)]:m-0 [@media(max-width:1099px)]:grid [@media(max-width:1099px)]:h-10.5 [@media(max-width:1099px)]:w-10.5 [@media(max-width:1099px)]:shrink-0 [@media(max-width:1099px)]:place-items-center [@media(max-width:1099px)]:rounded-lg [@media(max-width:1099px)]:border-0 [@media(max-width:1099px)]:bg-transparent [@media(max-width:1099px)]:p-0 [@media(max-width:1099px)]:text-[28px] [@media(max-width:1099px)]:text-[#063d39] [@media(max-width:1099px)]:hover:bg-[#dceae4] [@media(max-width:639px)]:ml-auto [@media(max-width:639px)]:text-2xl"  type="button" aria-label="Open navigation" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => { setMenuClosing(false); setMenuOpen(true) }}>
@@ -58,7 +58,7 @@ export function Header({ page = 'home', inset = false }: { page?: 'home' | 'feat
       <button className="drawer-close rounded-lg transition-colors focus-visible:bg-[#dceae4] hidden [@media(max-width:1099px)]:absolute [@media(max-width:1099px)]:top-5 [@media(max-width:1099px)]:right-5 [@media(max-width:1099px)]:grid [@media(max-width:1099px)]:h-10.5 [@media(max-width:1099px)]:w-10.5 [@media(max-width:1099px)]:place-items-center [@media(max-width:1099px)]:border-0 [@media(max-width:1099px)]:bg-transparent [@media(max-width:1099px)]:text-[28px] [@media(max-width:1099px)]:text-[#063d39] [@media(max-width:1099px)]:hover:bg-[#dceae4]" type="button" aria-label="Close navigation" onClick={closeMenu}>
         <RemixIcon name="close-large-line" />
       </button>
-      {navigation.map(([label, href]) => <a key={label} href={href} aria-current={page === 'features' ? (href === '/features' ? 'page' : undefined) : (activeHash === href ? 'location' : undefined)} onClick={() => { setActiveHash(href); if (menuOpen) closeMenu() }}>{label}</a>)}
+      {navigation.map(([label, href]) => <a key={label} href={href} aria-current={page !== 'home' ? (href === `/${page}` ? 'page' : undefined) : (activeHash === href ? 'location' : undefined)} onClick={() => { setActiveHash(href); if (menuOpen) closeMenu() }}>{label}</a>)}
       <div className="drawer-actions hidden [@media(max-width:639px)]:mt-3 [@media(max-width:639px)]:flex [@media(max-width:639px)]:w-full [@media(max-width:639px)]:flex-col [@media(max-width:639px)]:gap-3 [@media(max-width:639px)]:[&_button]:w-full [@media(max-width:639px)]:[&_button]:min-w-0">
         <PresentationButton>Sign In</PresentationButton>
         <PresentationButton>Get Started</PresentationButton>
